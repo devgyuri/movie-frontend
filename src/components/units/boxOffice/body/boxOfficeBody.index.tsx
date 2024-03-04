@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { IDailyBoxOfficeResult } from "../../../../commons/types/rest/bosOffice.types";
+import MoviePoster from "../../../../commons/moviePoster/MoviePoster.index";
 
 export default function BoxOfficeBody(): JSX.Element {
-  const [data, setData] = useState();
+  const [data, setData] = useState<IDailyBoxOfficeResult>();
 
   const fetchData = async () => {
     const res = await axios.get(
@@ -25,9 +27,10 @@ export default function BoxOfficeBody(): JSX.Element {
   return (
     <>
       <div>data: </div>
-      {data.boxOfficeResult.dailyBoxOfficeList.map((el) => {
-        return el.movieNm;
+      {data?.boxOfficeResult.dailyBoxOfficeList.map((el, index) => {
+        return <div key={index}>{el.movieNm}</div>;
       })}
+      <MoviePoster movieId="qqq" />
     </>
   );
 }
