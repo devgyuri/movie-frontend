@@ -36,7 +36,7 @@ export const DetailButton = styled.div`
   left: 200px;
   top: 180px;
   text-align: center;
-  background-color: #eeaa2b;
+  background-color: var(--primary-color);
   color: white;
   cursor: pointer;
   opacity: 0;

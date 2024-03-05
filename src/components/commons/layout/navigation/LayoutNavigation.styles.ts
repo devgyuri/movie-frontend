@@ -47,6 +47,6 @@ export const SelectedMenuItem = styled.div`
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
-  background-color: #eeaa2b;
+  background-color: var(--primary-color);
   color: #212121;
 `;
