@@ -28,3 +28,7 @@ export interface IBoxOfficeList {
   scrnCnt: string;
   showCnt: string;
 }
+
+export interface IFetchBoxOffice {
+  data?: IDailyBoxOfficeResult;
+}

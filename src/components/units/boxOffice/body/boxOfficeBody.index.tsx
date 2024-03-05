@@ -1,35 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IDailyBoxOfficeResult } from "../../../../commons/types/rest/bosOffice.types";
-import MoviePoster from "../../../../commons/moviePoster/MoviePoster.index";
+import MoviePoster from "../../../commons/moviePoster/MoviePoster.index";
+import { useFetchBoxOffice } from "../../../commons/hooks/rest/useFetchBoxOffice";
+import { useFetchMovieDetail } from "../../../commons/hooks/rest/useFetchMovieDetail";
 
 export default function BoxOfficeBody(): JSX.Element {
-  const [data, setData] = useState<IDailyBoxOfficeResult>();
+  const { data: boxOffice } = useFetchBoxOffice();
+  const { data: movieDetail } = useFetchMovieDetail();
 
-  const fetchData = async () => {
-    const res = await axios.get(
-      "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
-      {
-        params: {
-          key: process.env.NEXT_PUBLIC_BOX_OFFICE_API_KEY,
-          targetDt: "20240301",
-        },
-      },
-    );
-    setData(res.data);
-    console.log(res.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const posters = movieDetail?.Data[0].Result[0].posters.split("|");
 
   return (
     <>
       <div>data: </div>
-      {data?.boxOfficeResult.dailyBoxOfficeList.map((el, index) => {
+      {boxOffice?.boxOfficeResult.dailyBoxOfficeList.map((el, index) => {
         return <div key={index}>{el.movieNm}</div>;
       })}
+      <div>movie detail</div>
+      <div>{movieDetail?.KMAQuery}</div>
+      <img src={posters?.[0]} />
+      {/* <img src="http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021733.jpg" /> */}
       <MoviePoster movieId="qqq" />
     </>
   );
