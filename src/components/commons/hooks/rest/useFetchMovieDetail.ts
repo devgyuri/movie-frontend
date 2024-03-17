@@ -26,5 +26,5 @@ export const useFetchMovieDetail = (): IFetchMovieDetail => {
   useEffect(() => {
     fetchData();
   }, []);
-  return { data: data };
+  return { data };
 };

@@ -25,5 +25,5 @@ export const useFetchBoxOffice = (): IFetchBoxOffice => {
   useEffect(() => {
     fetchData();
   }, []);
-  return { data: data };
+  return { data };
 };

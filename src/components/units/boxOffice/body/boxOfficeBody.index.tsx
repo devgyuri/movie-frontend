@@ -4,6 +4,7 @@ import { IDailyBoxOfficeResult } from "../../../../commons/types/rest/bosOffice.
 import MoviePoster from "../../../commons/moviePoster/MoviePoster.index";
 import { useFetchBoxOffice } from "../../../commons/hooks/rest/useFetchBoxOffice";
 import { useFetchMovieDetail } from "../../../commons/hooks/rest/useFetchMovieDetail";
+import Ranking from "../../../commons/ranking/Ranking.index";
 
 export default function BoxOfficeBody(): JSX.Element {
   const { data: boxOffice } = useFetchBoxOffice();
@@ -15,7 +16,7 @@ export default function BoxOfficeBody(): JSX.Element {
     <>
       <div>data: </div>
       {boxOffice?.boxOfficeResult.dailyBoxOfficeList.map((el, index) => {
-        return <div key={index}>{el.movieNm}</div>;
+        return <Ranking key={index} title={el.movieNm} ranking={index + 1} />;
       })}
       <div>movie detail</div>
       <div>{movieDetail?.KMAQuery}</div>
