@@ -5,26 +5,33 @@ import {
   IMovieQueryResult,
 } from "../../../../commons/types/rest/movieDetail.types";
 
-export const useFetchMovieDetail = (): IFetchMovieDetail => {
+interface IUseFetchMovieDetailArgs {
+  name: string;
+}
+
+export const useFetchMovieDetail = (
+  props: IUseFetchMovieDetailArgs,
+): IFetchMovieDetail => {
   const [data, setData] = useState<IMovieQueryResult>();
 
-  const fetchData = async (): Promise<void> => {
+  const fetchData = async ({
+    name,
+  }: IUseFetchMovieDetailArgs): Promise<void> => {
     const res = await axios.get(
       "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
       {
         params: {
           collection: "kmdb_new2",
           ServiceKey: process.env.NEXT_PUBLIC_KMDB_API_KEY,
-          title: "파묘",
+          title: name,
         },
       },
     );
-    console.log(res.data);
     setData(res.data);
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData({ name: props?.name });
   }, []);
   return { data };
 };

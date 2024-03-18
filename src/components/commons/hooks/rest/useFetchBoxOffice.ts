@@ -5,16 +5,22 @@ import {
 } from "../../../../commons/types/rest/bosOffice.types";
 import { useEffect, useState } from "react";
 
-export const useFetchBoxOffice = (): IFetchBoxOffice => {
+interface IUseFetchBoxOfficeArgs {
+  date: string;
+}
+
+export const useFetchBoxOffice = (
+  props: IUseFetchBoxOfficeArgs,
+): IFetchBoxOffice => {
   const [data, setData] = useState<IDailyBoxOfficeResult>();
 
-  const fetchData = async (): Promise<void> => {
+  const fetchData = async ({ date }: IUseFetchBoxOfficeArgs): Promise<void> => {
     const res = await axios.get(
       "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
       {
         params: {
           key: process.env.NEXT_PUBLIC_KOBIS_API_KEY,
-          targetDt: "20240301",
+          targetDt: date,
         },
       },
     );
@@ -23,7 +29,7 @@ export const useFetchBoxOffice = (): IFetchBoxOffice => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData({ date: props?.date });
   }, []);
   return { data };
 };
