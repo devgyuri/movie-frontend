@@ -6,8 +6,9 @@ import {
   Wrapper,
 } from "./MoviePoster.styles";
 import { useRouter } from "next/router";
+import { IMoviePosterProps } from "./MoviePoster.types";
 
-export default function MoviePoster(props: any): JSX.Element {
+export default function MoviePoster(props: IMoviePosterProps): JSX.Element {
   const router = useRouter();
 
   const onClickMoveToPage = () => {
@@ -17,7 +18,7 @@ export default function MoviePoster(props: any): JSX.Element {
   return (
     <>
       <Wrapper>
-        <PosterImg src="/images/lalaland.jpg" />
+        <PosterImg src={props.posterUrl} />
         <Overlay />
         <DetailButton onClick={onClickMoveToPage}>상세보기</DetailButton>
       </Wrapper>

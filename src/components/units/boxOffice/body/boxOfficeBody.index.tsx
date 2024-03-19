@@ -10,6 +10,8 @@ import { FetchBoxOffice } from "../../../commons/apis/rest/fethBoxOffice";
 export default function BoxOfficeBody(): JSX.Element {
   // const { data: boxOffice } = await FetchBoxOffice({ date: "20240301" });
   const { data: boxOffice } = useFetchBoxOffice({ date: "20240301" });
+
+  console.log(boxOffice);
   // const { data: movieDetail } = useFetchMovieDetail({ name: "파묘" });
 
   // const posters = movieDetail?.Data[0].Result[0].posters.split("|");
@@ -18,12 +20,17 @@ export default function BoxOfficeBody(): JSX.Element {
     <>
       <div>data: </div>
       {boxOffice?.boxOfficeResult?.dailyBoxOfficeList.map((el, index) => {
-        return <Ranking key={index} title={el.movieNm} ranking={index + 1} />;
+        // if (index < 1)
+        return (
+          <Ranking
+            key={index}
+            title={el.movieNm}
+            ranking={index + 1}
+            openDt={el.openDt}
+            audiAcc={el.audiAcc}
+          />
+        );
       })}
-      <div>movie detail</div>
-      {/* <img src={posters?.[0]} /> */}
-      {/* <img src="http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021733.jpg" /> */}
-      <MoviePoster movieId="qqq" />
     </>
   );
 }

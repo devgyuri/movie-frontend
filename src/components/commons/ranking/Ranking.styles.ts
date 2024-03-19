@@ -18,7 +18,7 @@ export const CardWrapper = styled.div`
   // background-color: red;
 `;
 
-export const Poster = styled.img`
+export const PosterWrapper = styled.div`
   width: 180px;
   height: 250px;
   position: absolute;

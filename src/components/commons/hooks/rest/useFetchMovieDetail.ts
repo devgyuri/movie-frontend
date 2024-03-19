@@ -7,6 +7,7 @@ import {
 
 interface IUseFetchMovieDetailArgs {
   name: string;
+  openDt: string;
 }
 
 export const useFetchMovieDetail = (
@@ -16,7 +17,10 @@ export const useFetchMovieDetail = (
 
   const fetchData = async ({
     name,
+    openDt,
   }: IUseFetchMovieDetailArgs): Promise<void> => {
+    const releaseDt = openDt.replaceAll("-", "");
+
     const res = await axios.get(
       "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
       {
@@ -24,6 +28,8 @@ export const useFetchMovieDetail = (
           collection: "kmdb_new2",
           ServiceKey: process.env.NEXT_PUBLIC_KMDB_API_KEY,
           title: name,
+          releaseDts: releaseDt,
+          releaseDte: releaseDt,
         },
       },
     );
@@ -31,7 +37,7 @@ export const useFetchMovieDetail = (
   };
 
   useEffect(() => {
-    fetchData({ name: props?.name });
+    fetchData({ name: props?.name, openDt: props?.openDt });
   }, []);
   return { data };
 };

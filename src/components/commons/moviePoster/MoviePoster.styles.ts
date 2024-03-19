@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   position: relative;
-  width: 510px;
-  height: 727px;
+  width: 180px;
+  height: 250px;
 
   :hover div:nth-child(2) {
     background: rgba(0, 0, 0, 0.3);
@@ -26,17 +26,19 @@ export const Overlay = styled.div`
 
 export const PosterImg = styled.img`
   position: absolute;
-  width: 510px;
-  height: 727px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const DetailButton = styled.div`
   position: absolute;
   width: 100px;
-  left: 200px;
-  top: 180px;
+  padding: 5px 0;
+  left: 40px;
+  top: 80px;
   text-align: center;
   background-color: var(--primary-color);
+  border-radius: 15px;
   color: white;
   cursor: pointer;
   opacity: 0;
