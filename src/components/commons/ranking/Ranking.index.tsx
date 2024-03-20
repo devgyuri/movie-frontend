@@ -32,7 +32,6 @@ export default function Ranking(props: IRankingProps): JSX.Element {
             </S.Info>
           </S.InfoBox>
           <S.Ranking>{props.ranking}</S.Ranking>
-          {/* <S.Poster src={posters?.[0]}></S.Poster> */}
           <S.PosterWrapper>
             <MoviePoster movieId="qqq" posterUrl={posters?.[0] ?? ""} />
           </S.PosterWrapper>

@@ -1,12 +1,12 @@
 import LayoutNavigation from "../../src/components/commons/layout/navigation/LayoutNavigation.index";
-import BoxOfficeBody from "../../src/components/units/boxOffice/body/boxOfficeBody.index";
+import BoxOffice from "../../src/components/units/boxOffice/boxoffice.index";
 
 export default function BoxOfficePage(): JSX.Element {
   return (
     <>
       <LayoutNavigation menuIndex={0} />
       <h1>boxOffice</h1>
-      <BoxOfficeBody />
+      <BoxOffice />
     </>
   );
 }

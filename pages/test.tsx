@@ -1,9 +1,9 @@
-import Ranking from "../src/components/commons/ranking/Ranking.index";
+import BoxOfficeHeader from "../src/components/units/boxOffice/header/boxOfficeHeader.index";
 
 export default function TestPage(): JSX.Element {
   return (
     <>
-      <Ranking title="라라랜드" ranking={3} />
+      <BoxOfficeHeader />
     </>
   );
 }
