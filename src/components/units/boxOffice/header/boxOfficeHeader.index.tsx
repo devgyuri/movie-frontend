@@ -1,9 +1,12 @@
 import DateSelector from "../../../commons/dateSelector/dateSelector.index";
+import { IBoxOfficeHeaderProps } from "./boxOfficeHeader.types";
 
-export default function BoxOfficeHeader(): JSX.Element {
+export default function BoxOfficeHeader(
+  props: IBoxOfficeHeaderProps,
+): JSX.Element {
   return (
     <>
-      <DateSelector />
+      <DateSelector onChangeDateSelector={props.onChangeDateSelector} />
     </>
   );
 }

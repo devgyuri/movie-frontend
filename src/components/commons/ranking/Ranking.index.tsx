@@ -1,17 +1,9 @@
-import { useFetchMovieDetail } from "../hooks/rest/useFetchMovieDetail";
 import MoviePoster from "../moviePoster/MoviePoster.index";
 import * as S from "./Ranking.styles";
 import { IRankingProps } from "./Ranking.types";
 
 export default function Ranking(props: IRankingProps): JSX.Element {
-  const { data: movieDetail } = useFetchMovieDetail({
-    name: props.title,
-    openDt: props.openDt,
-  });
-
-  const posters = movieDetail?.Data[0].Result[0].posters.split("|");
-
-  console.log(props.title, " ", movieDetail);
+  // const posters = movieDetail?.Data[0].Result[0].posters.split("|");
 
   return (
     <>
@@ -21,19 +13,14 @@ export default function Ranking(props: IRankingProps): JSX.Element {
             <S.Info>
               <S.Title>{props.title}</S.Title>
               <S.Star value={4.0} disabled />
-              <S.Genre>{movieDetail?.Data[0].Result[0].genre}</S.Genre>
+              <S.Genre>{props.genre}</S.Genre>
               <S.Audience>{props.audiAcc}명</S.Audience>
-              <S.Director>
-                {
-                  movieDetail?.Data[0].Result[0].directors.director[0]
-                    .directorNm
-                }
-              </S.Director>
+              <S.Director>{props.directorNm}</S.Director>
             </S.Info>
           </S.InfoBox>
           <S.Ranking>{props.ranking}</S.Ranking>
           <S.PosterWrapper>
-            <MoviePoster movieId="qqq" posterUrl={posters?.[0] ?? ""} />
+            <MoviePoster movieId={props.movieId} posterUrl={props.poster} />
           </S.PosterWrapper>
         </S.CardWrapper>
       </S.Wrapper>

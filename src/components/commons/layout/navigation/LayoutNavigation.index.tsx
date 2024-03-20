@@ -6,8 +6,8 @@ import {
   SelectedMenuItem,
   Wrapper,
 } from "./LayoutNavigation.styles";
-import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 import { ILayoutNavegationProps } from "./LayoutNavigation.types";
+import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },

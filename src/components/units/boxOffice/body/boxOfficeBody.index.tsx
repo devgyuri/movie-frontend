@@ -1,22 +1,31 @@
-import { useFetchBoxOffice } from "../../../commons/hooks/rest/useFetchBoxOffice";
 import Ranking from "../../../commons/ranking/Ranking.index";
+import { IBoxOfficeBodyProps } from "./boxOfficeBody.types";
 
-export default function BoxOfficeBody(): JSX.Element {
-  const { data: boxOffice } = useFetchBoxOffice({ date: "20240301" });
-
-  console.log(boxOffice);
+export default function BoxOfficeBody(props: IBoxOfficeBodyProps): JSX.Element {
+  // const { data: boxOffice } = useFetchBoxOffice({ date: props.dateString });
+  // console.log(boxOffice);
 
   return (
     <>
       <div>data: </div>
-      {boxOffice?.boxOfficeResult?.dailyBoxOfficeList.map((el, index) => {
+      {props.movieDetail.map((el, index) => {
+        // console.log("title: ", el.movieNm);
         return (
           <Ranking
-            key={index}
-            title={el.movieNm}
+            key={el.Data[0].Result[0].DOCID}
+            title={
+              props.boxOffice?.boxOfficeResult.dailyBoxOfficeList[index]
+                .movieNm ?? ""
+            }
             ranking={index + 1}
-            openDt={el.openDt}
-            audiAcc={el.audiAcc}
+            genre={el.Data[0].Result[0].genre}
+            directorNm={el.Data[0].Result[0].directors.director[0].directorNm}
+            movieId={el.Data[0].Result[0].movieId}
+            poster={el.Data[0].Result[0].posters.split("|")[0]}
+            audiAcc={
+              props.boxOffice?.boxOfficeResult.dailyBoxOfficeList[index]
+                .audiAcc ?? "0"
+            }
           />
         );
       })}

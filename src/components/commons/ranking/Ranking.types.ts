@@ -1,7 +1,9 @@
 export interface IRankingProps {
   title: string;
-  key?: number;
   ranking: number;
-  openDt: string;
+  poster: string;
+  genre: string;
+  directorNm: string;
+  movieId: string;
   audiAcc: string;
 }

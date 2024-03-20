@@ -1,16 +1,10 @@
-import { useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import * as S from "./dateSelector.styles";
-import { ConfigProvider } from "antd";
+import { useDateSelector } from "../hooks/customs/useDateSelector";
+import { IDateSelectorProps } from "./dateSelector.types";
 
-export default function DateSelector(): JSX.Element {
-  const today = new Date();
-  const [dateString, setDateString] = useState<string>(today.toString());
-  const onChangeDatePicker = (_: unknown, ds: string | string[]) => {
-    const target = typeof ds === "string" ? ds : ds[0];
-    setDateString(target);
-    console.log(target);
-  };
+export default function DateSelector(props: IDateSelectorProps): JSX.Element {
+  const yesterday = dayjs().subtract(1, "day");
 
   return (
     <>
@@ -18,10 +12,10 @@ export default function DateSelector(): JSX.Element {
         <S.DateDisplay
           allowClear={false}
           suffixIcon
-          defaultValue={dayjs(today)}
-          pickerValue={dayjs(today)}
+          defaultValue={yesterday}
+          pickerValue={yesterday}
           size="large"
-          onChange={onChangeDatePicker}
+          onChange={props.onChangeDateSelector}
         />
       </S.DateWrapper>
     </>

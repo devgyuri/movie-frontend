@@ -147,7 +147,3 @@ export interface IVod {
   vodClass: string;
   vodUrl: string;
 }
-
-export interface IFetchMovieDetail {
-  data?: IMovieQueryResult;
-}
