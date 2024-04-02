@@ -73,7 +73,7 @@ export interface IDirector {
 }
 
 export interface IActors {
-  actors: IActor[];
+  actor: IActor[];
 }
 
 export interface IActor {
@@ -83,7 +83,7 @@ export interface IActor {
 }
 
 export interface IPlots {
-  plots: IPlot[];
+  plot: IPlot[];
 }
 
 export interface IPlot {
