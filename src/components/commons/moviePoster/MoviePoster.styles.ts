@@ -5,11 +5,11 @@ export const Wrapper = styled.div`
   width: 180px;
   height: 250px;
 
-  :hover div:nth-child(2) {
+  :hover div:nth-of-type(1) {
     background: rgba(0, 0, 0, 0.3);
   }
 
-  :hover div:nth-child(3) {
+  :hover div:nth-of-type(2) {
     opacity: 1;
   }
 `;

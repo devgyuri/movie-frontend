@@ -18,7 +18,9 @@ export default function TestPage(): JSX.Element {
   // const data = useFetchActorImage();
   // const data = useFetchMovieToActor();
 
-  const { data } = useQueryFetchBoxOffice();
+  const { data } = useQueryFetchBoxOffice({
+    date: "20240301",
+  });
   console.log(data);
 
   return (

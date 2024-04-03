@@ -7,25 +7,18 @@ export default function BoxOfficeBody(props: IBoxOfficeBodyProps): JSX.Element {
 
   return (
     <>
-      <div>data: </div>
-      {props.movieDetail.map((el, index) => {
+      {props.data?.fetchBoxOffice.map((el, index) => {
         // console.log("title: ", el.movieNm);
         return (
           <Ranking
-            key={el.Data[0].Result[0].DOCID}
-            title={
-              props.boxOffice?.boxOfficeResult.dailyBoxOfficeList[index]
-                .movieNm ?? ""
-            }
+            key={el.id}
+            title={el.title}
             ranking={index + 1}
-            genre={el.Data[0].Result[0].genre}
-            directorNm={el.Data[0].Result[0].directors.director[0].directorNm}
-            movieId={el.Data[0].Result[0].movieId}
-            poster={el.Data[0].Result[0].posters.split("|")[0]}
-            audiAcc={
-              props.boxOffice?.boxOfficeResult.dailyBoxOfficeList[index]
-                .audiAcc ?? "0"
-            }
+            genre={el.genres[0].name}
+            directorNm={el.directors[0].name}
+            movieId={el.id}
+            poster={el.posters[0].url}
+            audiAcc="123,456"
           />
         );
       })}
