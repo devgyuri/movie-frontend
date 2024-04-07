@@ -11,6 +11,7 @@ export const FETCH_BOXOFFICE = gql`
       title
       open_dt
       plot
+      audi_acc
       actors {
         name
       }

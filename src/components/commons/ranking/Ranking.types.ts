@@ -5,5 +5,5 @@ export interface IRankingProps {
   genre: string;
   directorNm: string;
   movieId: string;
-  audiAcc: string;
+  audiAcc: number;
 }

@@ -18,7 +18,7 @@ export default function BoxOfficeBody(props: IBoxOfficeBodyProps): JSX.Element {
             directorNm={el.directors[0].name}
             movieId={el.id}
             poster={el.posters[0].url}
-            audiAcc="123,456"
+            audiAcc={el.audi_acc}
           />
         );
       })}
