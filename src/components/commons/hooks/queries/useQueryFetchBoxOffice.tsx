@@ -14,6 +14,7 @@ export const FETCH_BOXOFFICE = gql`
       audi_acc
       actors {
         name
+        url
       }
       directors {
         name
