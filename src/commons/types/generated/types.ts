@@ -20,6 +20,7 @@ export type IActor = {
   id: Scalars['Int']['output'];
   movies: Array<IMovie>;
   name: Scalars['String']['output'];
+  url: Scalars['String']['output'];
 };
 
 export type IBoxOffice = {
@@ -71,7 +72,20 @@ export type IMovie = {
 
 export type IMutation = {
   __typename?: 'Mutation';
+  fetchActorImage: Scalars['String']['output'];
   initializeTable: Scalars['String']['output'];
+  updateActorImage: IActor;
+};
+
+
+export type IMutationFetchActorImageArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type IMutationUpdateActorImageArgs = {
+  id: Scalars['Float']['input'];
+  url: Scalars['String']['input'];
 };
 
 export type IPoster = {

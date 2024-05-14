@@ -1,13 +1,25 @@
+import { useMutation } from "@apollo/client";
 import DateSelector from "../src/components/commons/dateSelector/dateSelector.index";
 import { useDateSelector } from "../src/components/commons/hooks/customs/useDateSelector";
+import {
+  FETCH_ACTOR_IMAGE,
+  useMutationActorImage,
+} from "../src/components/commons/hooks/mutations/useMutationFetchActorImage";
 import { useQueryFetchBoxOffice } from "../src/components/commons/hooks/queries/useQueryFetchBoxOffice";
 import { useFetchActorImage } from "../src/components/commons/hooks/rest/useFetchActorImage";
 import { useFetchAllMovieInfo } from "../src/components/commons/hooks/rest/useFetchAllMovieInfo";
 import { useFetchBoxOffice } from "../src/components/commons/hooks/rest/useFetchBoxOffice";
 import { useFetchMovieDetails } from "../src/components/commons/hooks/rest/useFetchMovieDetails";
 import { useFetchMovieToActor } from "../src/components/commons/hooks/rest/useFetchMovieToActor";
+import {
+  IMutation,
+  IMutationFetchActorImageArgs,
+} from "../src/commons/types/generated/types";
+import { useState } from "react";
 
 export default function TestPage(): JSX.Element {
+  const [url, setUrl] = useState("");
+
   // const { dateString, onChangeDateSelector } = useDateSelector();
 
   // const { data, movieQuery } = useFetchBoxOffice({ date: dateString });
@@ -18,6 +30,32 @@ export default function TestPage(): JSX.Element {
   // const data = useFetchActorImage();
   // const data = useFetchMovieToActor();
 
+  // const [url] = useMutationActorImage({
+  //   name: "이도현",
+  // });
+  // console.log(url);
+
+  const [fetchImage] = useMutation<
+    Pick<IMutation, "fetchActorImage">,
+    IMutationFetchActorImageArgs
+  >(FETCH_ACTOR_IMAGE);
+
+  const onClickButton = async (): Promise<string | undefined> => {
+    try {
+      const result = await fetchImage({
+        variables: {
+          name: "이도현",
+        },
+      });
+      setUrl(result.data?.fetchActorImage ?? "");
+      return result.data?.fetchActorImage ?? "";
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
+  };
+
   const { data } = useQueryFetchBoxOffice({
     date: "20240301",
   });
@@ -26,9 +64,8 @@ export default function TestPage(): JSX.Element {
   return (
     <>
       test page
-      {/* <img
-        src={`https://image.tmdb.org/t/p/original${data?.results[0]?.profile_path}`}
-      /> */}
+      <button onClick={onClickButton}>load image</button>
+      <img src={`https://image.tmdb.org/t/p/original${url}`} />
     </>
   );
 }
