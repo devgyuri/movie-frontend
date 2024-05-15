@@ -72,14 +72,8 @@ export type IMovie = {
 
 export type IMutation = {
   __typename?: 'Mutation';
-  fetchActorImage: Scalars['String']['output'];
   initializeTable: Scalars['String']['output'];
   updateActorImage: IActor;
-};
-
-
-export type IMutationFetchActorImageArgs = {
-  name: Scalars['String']['input'];
 };
 
 
@@ -99,11 +93,17 @@ export type IPoster = {
 export type IQuery = {
   __typename?: 'Query';
   fetchActor: Scalars['String']['output'];
+  fetchActorImage: Scalars['String']['output'];
   fetchBoxOffice: Array<IMovie>;
   fetchBoxOfficeToMovie: Scalars['String']['output'];
   fetchPoster: Scalars['String']['output'];
   fetchTemp: Scalars['String']['output'];
   fetchVod: Scalars['String']['output'];
+};
+
+
+export type IQueryFetchActorImageArgs = {
+  name: Scalars['String']['input'];
 };
 
 
