@@ -96,8 +96,8 @@ export type IQuery = {
   fetchActorImage: Scalars['String']['output'];
   fetchBoxOffice: Array<IMovie>;
   fetchBoxOfficeToMovie: Scalars['String']['output'];
+  fetchMovie: IMovie;
   fetchPoster: Scalars['String']['output'];
-  fetchTemp: Scalars['String']['output'];
   fetchVod: Scalars['String']['output'];
 };
 
@@ -109,6 +109,11 @@ export type IQueryFetchActorImageArgs = {
 
 export type IQueryFetchBoxOfficeArgs = {
   date: Scalars['String']['input'];
+};
+
+
+export type IQueryFetchMovieArgs = {
+  id: Scalars['String']['input'];
 };
 
 export type IVod = {

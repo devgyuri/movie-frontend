@@ -2,6 +2,8 @@ import { useFetchActorImage } from "../../commons/hooks/rest/useFetchActorImage"
 import { IMovieDetailProps } from "./movieDetail.types";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
+  console.log(props.data);
+
   const actorNames = props.data?.actors.map((el) => {
     return el.name;
   });

@@ -1,16 +1,29 @@
+import { useRouter } from "next/router";
 import { IMovie } from "../../../src/commons/types/generated/types";
+import { useQueryFetchMovieDetail } from "../../../src/components/commons/hooks/queries/useQueryFetchMovieDetail";
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import MovieDetail from "../../../src/components/units/movieDetail/movieDetail.index";
 
 export default function MovieDetailPage(): JSX.Element {
-  const tempMovie = {
-    actors: [{ name: "이도현" }, { name: "김고은" }],
-  };
+  // const tempMovie = {
+  //   actors: [{ name: "이도현" }, { name: "김고은" }],
+  // };
+
+  const router = useRouter();
+
+  let movieId: string;
+  if (Array.isArray(router.query.movieId)) {
+    movieId = router.query.movieId[0];
+  } else {
+    movieId = router.query.movieId ?? "";
+  }
+
+  const { data: movieData } = useQueryFetchMovieDetail({ id: movieId });
 
   return (
     <>
       <LayoutNavigation />
-      <MovieDetail data={tempMovie} />
+      <MovieDetail data={movieData?.fetchMovie} />
     </>
   );
 }
