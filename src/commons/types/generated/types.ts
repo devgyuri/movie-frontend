@@ -66,6 +66,8 @@ export type IMovie = {
   plot: Scalars['String']['output'];
   posters: Array<IPoster>;
   rating: Scalars['Int']['output'];
+  runtime: Scalars['Int']['output'];
+  stills: Array<IStill>;
   title: Scalars['String']['output'];
   vods: Array<IVod>;
 };
@@ -98,6 +100,7 @@ export type IQuery = {
   fetchBoxOfficeToMovie: Scalars['String']['output'];
   fetchMovie: IMovie;
   fetchPoster: Scalars['String']['output'];
+  fetchStill: Scalars['String']['output'];
   fetchVod: Scalars['String']['output'];
 };
 
@@ -114,6 +117,14 @@ export type IQueryFetchBoxOfficeArgs = {
 
 export type IQueryFetchMovieArgs = {
   id: Scalars['String']['input'];
+};
+
+export type IStill = {
+  __typename?: 'Still';
+  id: Scalars['Int']['output'];
+  isRep: Scalars['Boolean']['output'];
+  movie: IMovie;
+  url: Scalars['String']['output'];
 };
 
 export type IVod = {

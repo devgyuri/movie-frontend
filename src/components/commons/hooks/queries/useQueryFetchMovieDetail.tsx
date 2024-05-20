@@ -26,6 +26,10 @@ export const FETCH_MOVIE_DETAIL = gql`
         url
         isRep
       }
+      stills {
+        url
+        isRep
+      }
       vods {
         url
         isRep

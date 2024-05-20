@@ -11,12 +11,7 @@ export default function MovieDetailPage(): JSX.Element {
 
   const router = useRouter();
 
-  let movieId: string;
-  if (Array.isArray(router.query.movieId)) {
-    movieId = router.query.movieId[0];
-  } else {
-    movieId = router.query.movieId ?? "";
-  }
+  const movieId = String(router.query.movieId);
 
   const { data: movieData } = useQueryFetchMovieDetail({ id: movieId });
 
