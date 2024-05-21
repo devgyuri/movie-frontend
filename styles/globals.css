@@ -1,5 +1,9 @@
 :root {
-  --primary-color: #eeaa2b;
+  /* --primary-color: #eeaa2b; */
+  --primary-color: #e50914;
+  --white: #eeeeee;
+
+  --margin-paragraph: 15px;
 }
 
 * {

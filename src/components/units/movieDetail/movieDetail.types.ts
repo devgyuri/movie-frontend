@@ -1,6 +1,6 @@
 import { IMovie, IQuery } from "../../../commons/types/generated/types";
 
-export interface IWrapperProps {
+export interface IBackgroundImageProps {
   url: string;
 }
 
