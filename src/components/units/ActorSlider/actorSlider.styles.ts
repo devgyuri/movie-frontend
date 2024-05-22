@@ -14,49 +14,39 @@ export const SliderContainer = styled.div`
 `;
 
 export const StyledSlider = styled(Slider)`
-  .slick-next {
-    color: black;
-    position: relative;
-    top: 7vh;
-    right: 2vw;
-  }
-
-  .slick-prev {
-    color: black;
-    left: 0;
-    position: relative;
-    top: 7vh;
-  }
-
-  .slick-list {
-    width: 80%;
-    padding: 1;
-    right: -20px;
+  .slick-slide > div {
+    margin: 0 10px;
   }
 `;
 
 export const Slide = styled.div`
   background-color: red;
-  width: 80%;
+  width: 100%;
   height: 200px;
 `;
 
 export const PrevArrow = styled(LeftCircleOutlined)`
-  color: red;
-  font-size: 20px;
+  color: var(--light-gray);
+  font-size: 30px;
 
-  :hover,
   :focus {
-    color: violet;
+    color: var(--light-gray);
+  }
+
+  :hover {
+    color: var(--primary-color);
   }
 `;
 
 export const NextArrow = styled(RightCircleOutlined)`
-  color: red;
-  font-size: 20px;
+  color: var(--light-gray);
+  font-size: 30px;
 
-  :hover,
   :focus {
-    color: blue;
+    color: var(--light-gray);
+  }
+
+  :hover {
+    color: var(--primary-color);
   }
 `;

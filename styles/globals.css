@@ -2,6 +2,9 @@
   /* --primary-color: #eeaa2b; */
   --primary-color: #e50914;
   --white: #eeeeee;
+  --black: #111111;
+  --gray: #888888;
+  --light-gray: #bbbbbb;
 
   --margin-paragraph: 15px;
 }

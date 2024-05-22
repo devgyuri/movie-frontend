@@ -20,7 +20,7 @@ export default function MovieDetailPage(): JSX.Element {
     <>
       <LayoutNavigation />
       <MovieDetail data={movieData?.fetchMovie} />
-      <ActorSlider />
+      <ActorSlider data={movieData?.fetchMovie.actors} />
     </>
   );
 }
