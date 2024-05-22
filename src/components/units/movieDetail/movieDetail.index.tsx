@@ -1,6 +1,6 @@
 import { IMovieDetailProps } from "./movieDetail.types";
 import ReactPlayer from "react-player";
-import * as S from "./movieDetail.style";
+import * as S from "./movieDetail.styles";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   console.log(props.data);
@@ -27,7 +27,7 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
 
   return (
     <>
-      Movie Detail test
+      Movie Detail Hello
       <S.Wrapper>
         <S.BackgroundImage url={posterUrl ?? ""}>
           <S.ContentWrapper>

@@ -3,6 +3,7 @@ import { IMovie } from "../../../src/commons/types/generated/types";
 import { useQueryFetchMovieDetail } from "../../../src/components/commons/hooks/queries/useQueryFetchMovieDetail";
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import MovieDetail from "../../../src/components/units/movieDetail/movieDetail.index";
+import ActorSlider from "../../../src/components/units/ActorSlider/actorSlider.index";
 
 export default function MovieDetailPage(): JSX.Element {
   // const tempMovie = {
@@ -19,6 +20,7 @@ export default function MovieDetailPage(): JSX.Element {
     <>
       <LayoutNavigation />
       <MovieDetail data={movieData?.fetchMovie} />
+      <ActorSlider />
     </>
   );
 }
