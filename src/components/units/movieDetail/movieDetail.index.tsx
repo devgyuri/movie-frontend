@@ -1,13 +1,15 @@
 import { IMovieDetailProps } from "./movieDetail.types";
 import ReactPlayer from "react-player";
 import * as S from "./movieDetail.styles";
+import { useEffect, useState } from "react";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   console.log(props.data);
 
+  // movie information
   const openYear = props.data?.open_dt.substring(0, 4);
-
-  const actors = props.data?.actors;
 
   const gLen = props.data?.genres.length ?? 0;
   const genres: string[] = [];
@@ -20,10 +22,27 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
 
   const posterUrl = props.data?.posters[0].url;
 
+  let hasVod = false;
   const vodUrl = props.data?.vods[0]?.url.replace(
     "trailerPlayPop?pFileNm=",
     "play/",
   );
+  if (props.data?.vods.length !== 0) {
+    hasVod = true;
+  }
+
+  // modal control
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -51,21 +70,24 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
                   <S.Watched></S.Watched>
                   <S.Star></S.Star>
                 </S.IconWrapper>
-                <S.VodButton>Watch Trailer</S.VodButton>
+                <S.VodButton onClick={showModal} isActive={hasVod}>
+                  Watch Trailer
+                </S.VodButton>
               </S.InfoWrapper>
             </S.CardWrapper>
           </S.ContentWrapper>
         </S.BackgroundImage>
+
         {/* {actors?.map((el, idx) => {
           return (
             <img
-              key={idx}
-              src={`https://image.tmdb.org/t/p/original/${el.url}`}
+            key={idx}
+            src={`https://image.tmdb.org/t/p/original/${el.url}`}
             />
-          );
-        })}
-        <ReactPlayer url={vodUrl} controls={true} />
-        <video
+            );
+          })}
+          <ReactPlayer url={vodUrl} controls={true} />
+          <video
           src={vodUrl}
           width="300"
           controls
@@ -73,6 +95,17 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
           crossOrigin="anonymous"
         ></video> */}
       </S.Wrapper>
+      {hasVod && (
+        <S.VodModal
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          centered
+          width={700}
+        >
+          <S.CustomPlayer url={vodUrl} controls={true} />
+        </S.VodModal>
+      )}
     </>
   );
 }

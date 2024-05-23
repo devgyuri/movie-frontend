@@ -1,5 +1,7 @@
+import { IActor } from "../../../commons/types/generated/types";
+
 export interface IActorCardProps {
-  url: string;
+  data: IActor;
 }
 
 export interface IActorCardImageProps {

@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { IBackgroundImageProps } from "./movieDetail.types";
 import { HeartOutlined, EyeOutlined, StarFilled } from "@ant-design/icons";
+import { Modal } from "antd";
+import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -113,11 +115,27 @@ export const Star = styled(StarFilled)`
   color: yellow;
 `;
 
-export const VodButton = styled.button`
+export const VodButton = styled.button<{ isActive: boolean }>`
   width: 160px;
   height: 40px;
   border: none;
   border-radius: 20px;
-  background-color: var(--primary-color);
+  // background-color: var(--primary-color);
+  background-color: ${(props) =>
+    props.isActive ? "var(--primary-color)" : "var(--light-gray)"};
   color: var(--white);
+  cursor: pointer;
+
+  :hover {
+    color: var(--primary-color);
+    background-color: var(--white);
+  }
 `;
+
+export const VodModal = styled(Modal)`
+  .ant-modal-content {
+    background-color: var(--dark-gray);
+  }
+`;
+
+export const CustomPlayer = styled(ReactPlayer)``;
