@@ -4,6 +4,7 @@ import { useQueryFetchMovieDetail } from "../../../src/components/commons/hooks/
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import MovieDetail from "../../../src/components/units/movieDetail/movieDetail.index";
 import ActorSlider from "../../../src/components/units/ActorSlider/actorSlider.index";
+import MediaTab from "../../../src/components/units/MediaTab/MediaTab.index";
 
 export default function MovieDetailPage(): JSX.Element {
   // const tempMovie = {
@@ -21,6 +22,7 @@ export default function MovieDetailPage(): JSX.Element {
       <LayoutNavigation />
       <MovieDetail data={movieData?.fetchMovie} />
       <ActorSlider data={movieData?.fetchMovie.actors} />
+      <MediaTab />
     </>
   );
 }
