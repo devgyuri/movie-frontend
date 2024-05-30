@@ -2,6 +2,8 @@ import { IMovieDetailProps } from "./movieDetail.types";
 import ReactPlayer from "react-player";
 import * as S from "./movieDetail.styles";
 import { useEffect, useState } from "react";
+import { useLike } from "../../commons/hooks/customs/useLike";
+import { useQueryFetchLike } from "../../commons/hooks/queries/useQueryFetchLike";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,6 +32,18 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   if (props.data?.vods.length !== 0) {
     hasVod = true;
   }
+
+  // test useQuery
+  // const { data } = useQueryFetchLike({
+  //   userId: 1,
+  //   movieId: "F56776",
+  // });
+  // console.log("movie Detail", data);
+
+  // icon control
+  const { isLike, likeCount, onClickToggle } = useLike({
+    movieId: props.data?.id ?? "",
+  });
 
   // modal control
   const showModal = () => {
@@ -66,8 +80,15 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
                 </S.GenreWrapper>
                 <S.Summary>{props.data?.plot}</S.Summary>
                 <S.IconWrapper>
-                  <S.Favorite></S.Favorite>
+                  {isLike && (
+                    <S.FavoriteOn onClick={onClickToggle}></S.FavoriteOn>
+                  )}
+                  {!isLike && (
+                    <S.FavoriteOff onClick={onClickToggle}></S.FavoriteOff>
+                  )}
+                  <S.Count>{likeCount}</S.Count>
                   <S.Watched></S.Watched>
+                  <S.Count>123,456</S.Count>
                   <S.Star></S.Star>
                 </S.IconWrapper>
                 <S.VodButton onClick={showModal} isActive={hasVod}>
@@ -77,23 +98,6 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
             </S.CardWrapper>
           </S.ContentWrapper>
         </S.BackgroundImage>
-
-        {/* {actors?.map((el, idx) => {
-          return (
-            <img
-            key={idx}
-            src={`https://image.tmdb.org/t/p/original/${el.url}`}
-            />
-            );
-          })}
-          <ReactPlayer url={vodUrl} controls={true} />
-          <video
-          src={vodUrl}
-          width="300"
-          controls
-          preload="none"
-          crossOrigin="anonymous"
-        ></video> */}
       </S.Wrapper>
       {hasVod && (
         <S.VodModal

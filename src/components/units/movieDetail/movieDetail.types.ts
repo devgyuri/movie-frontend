@@ -8,3 +8,7 @@ export interface IMovieDetailProps {
   data?: IMovie;
   // data?: tempMovie;
 }
+
+export interface IFavoriteProps {
+  isActive: boolean;
+}

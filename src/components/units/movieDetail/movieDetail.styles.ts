@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
-import { IBackgroundImageProps } from "./movieDetail.types";
-import { HeartOutlined, EyeOutlined, StarFilled } from "@ant-design/icons";
+import { IBackgroundImageProps, IFavoriteProps } from "./movieDetail.types";
+import {
+  HeartOutlined,
+  EyeOutlined,
+  StarFilled,
+  HeartFilled,
+} from "@ant-design/icons";
 import { Modal } from "antd";
 import ReactPlayer from "react-player";
 
@@ -102,16 +107,31 @@ export const IconWrapper = styled.div`
   font-size: 18px;
 `;
 
-export const Favorite = styled(HeartOutlined)`
-  margin-right: 10px;
+export const Count = styled.div`
+  margin-right: 15px;
+  padding: 2px 0;
+  font-size: 14px;
+`;
+
+export const FavoriteOn = styled(HeartFilled)`
+  margin-right: 5px;
+  cursor: pointer;
+  color: red;
+`;
+
+export const FavoriteOff = styled(HeartOutlined)`
+  margin-right: 5px;
+  cursor: pointer;
+  color: ${(props: IFavoriteProps) => (props.isActive ? "red" : "white")};
 `;
 
 export const Watched = styled(EyeOutlined)`
-  margin-right: 10px;
+  margin-right: 5px;
+  cursor: pointer;
 `;
 
 export const Star = styled(StarFilled)`
-  margin-right: 10px;
+  margin-right: 5px;
   color: yellow;
 `;
 

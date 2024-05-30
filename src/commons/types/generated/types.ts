@@ -38,6 +38,16 @@ export type IBoxOfficeToMovie = {
   rank: Scalars['Int']['output'];
 };
 
+export type IComment = {
+  __typename?: 'Comment';
+  contents: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  movie: IMovie;
+  star: Scalars['Float']['output'];
+  user: IUser;
+};
+
 export type IDirector = {
   __typename?: 'Director';
   id: Scalars['Int']['output'];
@@ -52,6 +62,13 @@ export type IGenre = {
   name: Scalars['String']['output'];
 };
 
+export type ILike = {
+  __typename?: 'Like';
+  id: Scalars['Int']['output'];
+  movie: IMovie;
+  user: IUser;
+};
+
 export type IMovie = {
   __typename?: 'Movie';
   actors: Array<IActor>;
@@ -59,14 +76,17 @@ export type IMovie = {
   avg_star: Scalars['Float']['output'];
   boxOfficeToMovies: Array<IBoxOfficeToMovie>;
   cnt_star: Scalars['Int']['output'];
+  comments: Array<IComment>;
   directors: Array<IDirector>;
   genres: Array<IGenre>;
   id: Scalars['String']['output'];
+  likes: Array<ILike>;
   open_dt: Scalars['DateTime']['output'];
   plot: Scalars['String']['output'];
   posters: Array<IPoster>;
   rating: Scalars['Int']['output'];
   runtime: Scalars['Int']['output'];
+  seen: Array<ISeen>;
   stills: Array<IStill>;
   title: Scalars['String']['output'];
   vods: Array<IVod>;
@@ -74,8 +94,38 @@ export type IMovie = {
 
 export type IMutation = {
   __typename?: 'Mutation';
+  createLike: Scalars['Boolean']['output'];
+  createUser: IUser;
+  deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
+  login: Scalars['String']['output'];
+  restoreAccessToken: Scalars['String']['output'];
   updateActorImage: IActor;
+};
+
+
+export type IMutationCreateLikeArgs = {
+  movieId: Scalars['String']['input'];
+  userId: Scalars['Int']['input'];
+};
+
+
+export type IMutationCreateUserArgs = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+
+export type IMutationDeleteLikeArgs = {
+  movieId: Scalars['String']['input'];
+  userId: Scalars['Int']['input'];
+};
+
+
+export type IMutationLoginArgs = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 
@@ -98,9 +148,13 @@ export type IQuery = {
   fetchActorImage: Scalars['String']['output'];
   fetchBoxOffice: Array<IMovie>;
   fetchBoxOfficeToMovie: Scalars['String']['output'];
+  fetchLike: Scalars['Boolean']['output'];
+  fetchLikeCountByMovie: Scalars['Int']['output'];
   fetchMovie: IMovie;
   fetchPoster: Scalars['String']['output'];
+  fetchSeen: Scalars['Boolean']['output'];
   fetchStill: Scalars['String']['output'];
+  fetchUser: Scalars['String']['output'];
   fetchVod: Scalars['String']['output'];
 };
 
@@ -115,8 +169,32 @@ export type IQueryFetchBoxOfficeArgs = {
 };
 
 
+export type IQueryFetchLikeArgs = {
+  movieId: Scalars['String']['input'];
+  userId: Scalars['Int']['input'];
+};
+
+
+export type IQueryFetchLikeCountByMovieArgs = {
+  movieId: Scalars['String']['input'];
+};
+
+
 export type IQueryFetchMovieArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type IQueryFetchSeenArgs = {
+  movieId: Scalars['String']['input'];
+  userId: Scalars['Float']['input'];
+};
+
+export type ISeen = {
+  __typename?: 'Seen';
+  id: Scalars['Int']['output'];
+  movie: IMovie;
+  user: IUser;
 };
 
 export type IStill = {
@@ -125,6 +203,17 @@ export type IStill = {
   isRep: Scalars['Boolean']['output'];
   movie: IMovie;
   url: Scalars['String']['output'];
+};
+
+export type IUser = {
+  __typename?: 'User';
+  comments: Array<IComment>;
+  email: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  image: Scalars['String']['output'];
+  likes: Array<ILike>;
+  name: Scalars['String']['output'];
+  password: Scalars['String']['output'];
 };
 
 export type IVod = {
