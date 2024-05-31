@@ -69,6 +69,11 @@ export type ILike = {
   user: IUser;
 };
 
+export type ILoginResult = {
+  __typename?: 'LoginResult';
+  accessToken: Scalars['String']['output'];
+};
+
 export type IMovie = {
   __typename?: 'Movie';
   actors: Array<IActor>;
@@ -98,7 +103,7 @@ export type IMutation = {
   createUser: IUser;
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
-  login: Scalars['String']['output'];
+  loginUser: ILoginResult;
   restoreAccessToken: Scalars['String']['output'];
   updateActorImage: IActor;
 };
@@ -123,7 +128,7 @@ export type IMutationDeleteLikeArgs = {
 };
 
 
-export type IMutationLoginArgs = {
+export type IMutationLoginUserArgs = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };

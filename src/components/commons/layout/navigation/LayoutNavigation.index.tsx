@@ -1,11 +1,5 @@
 import { Fragment } from "react";
-import {
-  HomeLogo,
-  MenuItem,
-  MenuWrapper,
-  SelectedMenuItem,
-  Wrapper,
-} from "./LayoutNavigation.styles";
+import * as S from "./LayoutNavigation.styles";
 import { ILayoutNavegationProps } from "./LayoutNavigation.types";
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 
@@ -21,25 +15,29 @@ export default function LayoutNavigation(
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
-    <Wrapper>
-      <HomeLogo>M.Box</HomeLogo>
-      <MenuWrapper>
+    <S.Wrapper>
+      <S.HomeLogo>M.Box</S.HomeLogo>
+      <S.MenuWrapper>
         {NAVIGATION_MENUS.map((el, idx) =>
           idx === props.menuIndex ? (
             <Fragment key={el.page}>
-              <SelectedMenuItem onClick={onClickMoveToPage(el.page)}>
+              <S.SelectedMenuItem onClick={onClickMoveToPage(el.page)}>
                 {el.name}
-              </SelectedMenuItem>
+              </S.SelectedMenuItem>
             </Fragment>
           ) : (
             <Fragment key={el.page}>
-              <MenuItem onClick={onClickMoveToPage(el.page)}>
+              <S.MenuItem onClick={onClickMoveToPage(el.page)}>
                 {el.name}
-              </MenuItem>
+              </S.MenuItem>
             </Fragment>
           ),
         )}
-      </MenuWrapper>
-    </Wrapper>
+      </S.MenuWrapper>
+      <S.LoginWrapper>
+        <S.Login onClick={onClickMoveToPage("/login")}>로그인</S.Login>
+        <S.Signup>회원가입</S.Signup>
+      </S.LoginWrapper>
+    </S.Wrapper>
   );
 }

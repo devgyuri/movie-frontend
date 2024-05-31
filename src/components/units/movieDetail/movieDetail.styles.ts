@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { IBackgroundImageProps, IFavoriteProps } from "./movieDetail.types";
+import { IBackgroundImageProps, IFavoriteProps } from "./MovieDetail.types";
 import {
   HeartOutlined,
   EyeOutlined,
@@ -122,7 +122,7 @@ export const FavoriteOn = styled(HeartFilled)`
 export const FavoriteOff = styled(HeartOutlined)`
   margin-right: 5px;
   cursor: pointer;
-  color: ${(props: IFavoriteProps) => (props.isActive ? "red" : "white")};
+  color: white;
 `;
 
 export const Watched = styled(EyeOutlined)`

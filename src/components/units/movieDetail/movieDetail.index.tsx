@@ -1,6 +1,6 @@
-import { IMovieDetailProps } from "./movieDetail.types";
+import { IMovieDetailProps } from "./MovieDetail.types";
 import ReactPlayer from "react-player";
-import * as S from "./movieDetail.styles";
+import * as S from "./MovieDetail.styles";
 import { useEffect, useState } from "react";
 import { useLike } from "../../commons/hooks/customs/useLike";
 import { useQueryFetchLike } from "../../commons/hooks/queries/useQueryFetchLike";
