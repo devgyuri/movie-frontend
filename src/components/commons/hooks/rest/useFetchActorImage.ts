@@ -58,7 +58,7 @@ export const useFetchActorImage = (
 
   useEffect(() => {
     fetchImages({ actorsName: args.names });
-  }, []);
+  });
 
   return { urls };
 };
