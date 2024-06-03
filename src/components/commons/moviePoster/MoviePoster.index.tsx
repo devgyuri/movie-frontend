@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   DetailButton,
   Overlay,
@@ -7,20 +6,21 @@ import {
 } from "./MoviePoster.styles";
 import { useRouter } from "next/router";
 import { IMoviePosterProps } from "./MoviePoster.types";
+import { useMoveToPage } from "../hooks/customs/useMoveToPage";
 
 export default function MoviePoster(props: IMoviePosterProps): JSX.Element {
-  const router = useRouter();
-
-  const onClickMoveToPage = () => {
-    void router.push(`movieDetail/${props.movieId}`);
-  };
+  const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <>
       <Wrapper>
         <PosterImg src={props.posterUrl} />
         <Overlay />
-        <DetailButton onClick={onClickMoveToPage}>상세보기</DetailButton>
+        <DetailButton
+          onClick={onClickMoveToPage(`/movieDetail/${props.movieId}`)}
+        >
+          상세보기
+        </DetailButton>
       </Wrapper>
     </>
   );

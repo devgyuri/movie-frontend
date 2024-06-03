@@ -67,7 +67,7 @@ export const Login = styled.div`
   cursor: pointer;
 `;
 
-export const Signup = styled.div`
+export const SignUp = styled.div`
   width: 80px;
   color: white;
   cursor: pointer;

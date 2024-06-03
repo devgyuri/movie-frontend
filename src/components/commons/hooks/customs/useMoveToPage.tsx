@@ -13,7 +13,7 @@ export const useMoveToPage = (): IUseMoveToPageReturn => {
   };
 
   const moveToPage = (path: string) => {
-    console.log("move to page");
+    // console.log("move to page");
     void router.push(path);
   };
 

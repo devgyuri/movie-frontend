@@ -7,7 +7,6 @@
     "https-dev": "HTTPS=true next dev",
     "build": "next build",
     "start": "next start",
-    "https-start": "HTTPS=true next start",
     "lint": "next lint",
     "openapi": "openapi-generator generate -i http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json -g typescript-axios -o ./models -c ./openapi.json --skip-validate-spec",
     "generate": "graphql-codegen"

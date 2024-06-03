@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import * as S from "./LayoutNavigation.styles";
-import { ILayoutNavegationProps } from "./LayoutNavigation.types";
+import { ILayoutNavigationProps } from "./LayoutNavigation.types";
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 
 const NAVIGATION_MENUS = [
@@ -10,9 +10,9 @@ const NAVIGATION_MENUS = [
 ];
 
 export default function LayoutNavigation(
-  props: ILayoutNavegationProps,
+  props: ILayoutNavigationProps,
 ): JSX.Element {
-  const { onClickMoveToPage } = useMoveToPage();
+  const { moveToPage, onClickMoveToPage } = useMoveToPage();
 
   return (
     <S.Wrapper>
@@ -36,7 +36,7 @@ export default function LayoutNavigation(
       </S.MenuWrapper>
       <S.LoginWrapper>
         <S.Login onClick={onClickMoveToPage("/login")}>로그인</S.Login>
-        <S.Signup>회원가입</S.Signup>
+        <S.SignUp onClick={onClickMoveToPage("/signUp")}>회원가입</S.SignUp>
       </S.LoginWrapper>
     </S.Wrapper>
   );

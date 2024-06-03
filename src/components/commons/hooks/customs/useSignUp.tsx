@@ -1,21 +1,20 @@
 import { ChangeEvent, useState } from "react";
-import { useMutationLogin } from "../mutations/useMutationLoginUser";
-import { accessTokenState } from "../../../../commons/stores";
-import { useRecoilState } from "recoil";
 import { useMoveToPage } from "./useMoveToPage";
+import { useMutationSignUp } from "../mutations/useMutationSignUp";
 
-export interface IUseLogin {
+export interface IUseSignUp {
   onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickLogin: () => Promise<void>;
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickSignUp: () => Promise<void>;
 }
 
-export const useLogin = (): IUseLogin => {
+export const useSignUp = (): IUseSignUp => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginUser] = useMutationLogin();
+  const [name, setName] = useState("");
 
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [signUp] = useMutationSignUp();
 
   const { moveToPage } = useMoveToPage();
 
@@ -27,27 +26,27 @@ export const useLogin = (): IUseLogin => {
     setPassword(event.currentTarget.value);
   };
 
-  const onClickLogin = async (): Promise<void> => {
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
+    setName(event.currentTarget.value);
+  };
+
+  const onClickSignUp = async (): Promise<void> => {
     try {
-      const result = await loginUser({
+      const result = await signUp({
         variables: {
           email,
           password,
+          name,
         },
       });
-      const accessToken = result.data?.loginUser.accessToken;
-      console.log(accessToken);
 
-      if (accessToken === undefined) {
-        alert("로그인에 실패했습니다. 다시 시도해주세요.");
+      if (result.data?.signUp === false) {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
         return;
       }
 
-      setAccessToken(accessToken);
-      localStorage.setItem("accessToken", accessToken);
-
-      alert("로그인에 성공하였습니다.");
-      moveToPage("/boxOffice");
+      alert("회원가입에 성공하였습니다. 로그인 해주세요.");
+      moveToPage("/login");
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -58,6 +57,7 @@ export const useLogin = (): IUseLogin => {
   return {
     onChangeEmail,
     onChangePassword,
-    onClickLogin,
+    onChangeName,
+    onClickSignUp,
   };
 };

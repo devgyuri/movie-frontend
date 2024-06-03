@@ -1,3 +1,3 @@
-export interface ILayoutNavegationProps {
+export interface ILayoutNavigationProps {
   menuIndex?: number;
 }

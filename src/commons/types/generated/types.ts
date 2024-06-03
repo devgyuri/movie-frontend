@@ -100,11 +100,12 @@ export type IMovie = {
 export type IMutation = {
   __typename?: 'Mutation';
   createLike: Scalars['Boolean']['output'];
-  createUser: IUser;
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
   loginUser: IAccessToken;
+  logoutUser: Scalars['String']['output'];
   restoreAccessToken: IAccessToken;
+  signUp: Scalars['Boolean']['output'];
   updateActorImage: IActor;
 };
 
@@ -112,13 +113,6 @@ export type IMutation = {
 export type IMutationCreateLikeArgs = {
   movieId: Scalars['String']['input'];
   userId: Scalars['Int']['input'];
-};
-
-
-export type IMutationCreateUserArgs = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
 };
 
 
@@ -130,6 +124,13 @@ export type IMutationDeleteLikeArgs = {
 
 export type IMutationLoginUserArgs = {
   email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+
+export type IMutationSignUpArgs = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
