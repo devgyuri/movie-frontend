@@ -22,8 +22,3 @@ export const Name = styled.div`
   font-size: 15px;
   color: #111111;
 `;
-
-export const Role = styled.div`
-  font-size: 12px;
-  color: #888888;
-`;

@@ -10,12 +10,15 @@ export const Wrapper = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-  width: 80%;
+  width: auto;
 `;
 
 export const StyledSlider = styled(Slider)`
-  .slick-slide > div {
-    margin: 0 10px;
+  display: flex;
+  flex-direction: row;
+
+  & > .slick-list {
+    width: 900px;
   }
 `;
 
@@ -26,6 +29,8 @@ export const Slide = styled.div`
 `;
 
 export const PrevArrow = styled(LeftCircleOutlined)`
+  width: auto;
+  height: auto;
   color: var(--light-gray);
   font-size: 30px;
 
@@ -39,6 +44,8 @@ export const PrevArrow = styled(LeftCircleOutlined)`
 `;
 
 export const NextArrow = styled(RightCircleOutlined)`
+  width: auto;
+  height: auto;
   color: var(--light-gray);
   font-size: 30px;
 

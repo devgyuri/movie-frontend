@@ -1,9 +1,16 @@
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import * as S from "./actorSlider.styles";
-import ActorCard from "../ActorCard/ActorCard.index";
-import { IActorSliderProps } from "./actorSlider.types";
+import * as S from "./ActorSlider.styles";
+import ActorCard from "../actorCard/ActorCard.index";
+import { IActorSliderProps } from "./ActorSlider.types";
+
+function SampleNextArrow() {
+  return <S.NextArrow />;
+}
+
+function SamplePrevArrow() {
+  return <S.PrevArrow />;
+}
 
 export default function ActorSlider(props: IActorSliderProps): JSX.Element {
   const settings = {

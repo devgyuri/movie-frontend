@@ -24,7 +24,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink: ApolloLink = createUploadLink({
-    uri: "http://localhost:4000/graphql",
+    uri: "http://localhost:4000/graphql/hello",
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 

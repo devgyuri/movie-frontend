@@ -1,5 +1,5 @@
 import Ranking from "../../../commons/ranking/Ranking.index";
-import { IBoxOfficeBodyProps } from "./boxOfficeBody.types";
+import { IBoxOfficeBodyProps } from "./BoxOfficeBody.types";
 
 export default function BoxOfficeBody(props: IBoxOfficeBodyProps): JSX.Element {
   // const { data: boxOffice } = useFetchBoxOffice({ date: props.dateString });
