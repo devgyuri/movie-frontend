@@ -15,6 +15,11 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type IAccessToken = {
+  __typename?: 'AccessToken';
+  accessToken: Scalars['String']['output'];
+};
+
 export type IActor = {
   __typename?: 'Actor';
   id: Scalars['Int']['output'];
@@ -69,11 +74,6 @@ export type ILike = {
   user: IUser;
 };
 
-export type ILoginResult = {
-  __typename?: 'LoginResult';
-  accessToken: Scalars['String']['output'];
-};
-
 export type IMovie = {
   __typename?: 'Movie';
   actors: Array<IActor>;
@@ -103,8 +103,8 @@ export type IMutation = {
   createUser: IUser;
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
-  loginUser: ILoginResult;
-  restoreAccessToken: Scalars['String']['output'];
+  loginUser: IAccessToken;
+  restoreAccessToken: IAccessToken;
   updateActorImage: IActor;
 };
 

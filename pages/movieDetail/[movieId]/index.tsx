@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { IMovie } from "../../../src/commons/types/generated/types";
 import { useQueryFetchMovieDetail } from "../../../src/components/commons/hooks/queries/useQueryFetchMovieDetail";
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
-import MovieDetail from "../../../src/components/units/movieDetail/movieDetail.index";
-import ActorSlider from "../../../src/components/units/ActorSlider/actorSlider.index";
-import MediaTab from "../../../src/components/units/MediaTab/MediaTab.index";
+import MovieDetail from "../../../src/components/units/movieDetail/MovieDetail.index";
+import ActorSlider from "../../../src/components/units/actorSlider/ActorSlider.index";
+import MediaTab from "../../../src/components/units/mediaTab/MediaTab.index";
 
 export default function MovieDetailPage(): JSX.Element {
   // const tempMovie = {
