@@ -47,7 +47,7 @@ export const useLogin = (): IUseLogin => {
       localStorage.setItem("accessToken", accessToken);
 
       alert("로그인에 성공하였습니다.");
-      moveToPage("/boxOffice");
+      moveToPage("/");
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

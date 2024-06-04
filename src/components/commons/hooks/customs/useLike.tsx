@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useMutationCreateLike } from "../mutations/useMutationCreateLike";
-import { useMutationDeleteLike } from "../mutations/useMutationDeleteteLike";
+import { useMutationDeleteLike } from "../mutations/useMutationDeleteLike";
 import { useQueryFetchLike } from "../queries/useQueryFetchLike";
 import { useQueryFetchLikeCountByMovie } from "../queries/useQueryFetchLikeCountByMovie";
+import { useMoveToPage } from "./useMoveToPage";
+import { useAuthState } from "./useAuthState";
 
 export interface IUseLike {
   isLike: boolean;
@@ -15,6 +17,9 @@ export interface IUseLikeArgs {
 }
 
 export const useLike = (args: IUseLikeArgs): IUseLike => {
+  const { moveToPage } = useMoveToPage();
+  const { authState } = useAuthState();
+
   const [isLike, setIsLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -30,12 +35,19 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
   useEffect(() => {
     setIsLike(data?.fetchLike ?? false);
     setLikeCount(likeData?.fetchLikeCountByMovie ?? 0);
+    console.log("useEffect by like");
   }, [data, likeData]);
 
   const [createLike] = useMutationCreateLike();
   const [deleteLike] = useMutationDeleteLike();
 
   const onClickToggle = async (): Promise<void> => {
+    if (authState === false) {
+      alert("로그인 후 이용 가능합니다.");
+      moveToPage("/login");
+      return;
+    }
+
     try {
       if (isLike === false) {
         await createLike({

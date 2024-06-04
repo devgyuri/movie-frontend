@@ -148,6 +148,14 @@ export type IPoster = {
   url: Scalars['String']['output'];
 };
 
+export type IProfile = {
+  __typename?: 'Profile';
+  email: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  picture?: Maybe<Scalars['String']['output']>;
+};
+
 export type IQuery = {
   __typename?: 'Query';
   fetchActor: Scalars['String']['output'];
@@ -160,7 +168,7 @@ export type IQuery = {
   fetchPoster: Scalars['String']['output'];
   fetchSeen: Scalars['Boolean']['output'];
   fetchStill: Scalars['String']['output'];
-  fetchUser: Scalars['String']['output'];
+  fetchUser: IProfile;
   fetchVod: Scalars['String']['output'];
 };
 
@@ -216,10 +224,10 @@ export type IUser = {
   comments: Array<IComment>;
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
-  image: Scalars['String']['output'];
   likes: Array<ILike>;
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
+  picture: Scalars['String']['output'];
 };
 
 export type IVod = {

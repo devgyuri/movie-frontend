@@ -2,6 +2,8 @@ import { Fragment } from "react";
 import * as S from "./LayoutNavigation.styles";
 import { ILayoutNavigationProps } from "./LayoutNavigation.types";
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
+import { useAuthState } from "../../hooks/customs/useAuthState";
+import { useQueryFetchUser } from "../../hooks/queries/useQueryFetchUser";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
@@ -12,7 +14,18 @@ const NAVIGATION_MENUS = [
 export default function LayoutNavigation(
   props: ILayoutNavigationProps,
 ): JSX.Element {
-  const { moveToPage, onClickMoveToPage } = useMoveToPage();
+  const { onClickMoveToPage } = useMoveToPage();
+
+  const { authState, setAuthState } = useAuthState();
+
+  const { data } = useQueryFetchUser();
+
+  const profileImg = data?.fetchUser.picture ?? "/images/flower.jpg";
+
+  const onClickLogout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState(false);
+  };
 
   return (
     <S.Wrapper>
@@ -34,10 +47,20 @@ export default function LayoutNavigation(
           ),
         )}
       </S.MenuWrapper>
-      <S.LoginWrapper>
-        <S.Login onClick={onClickMoveToPage("/login")}>로그인</S.Login>
-        <S.SignUp onClick={onClickMoveToPage("/signUp")}>회원가입</S.SignUp>
-      </S.LoginWrapper>
+      {authState ? (
+        <S.LoginWrapper>
+          <S.Picture src={profileImg}></S.Picture>
+          <S.Name onClick={onClickMoveToPage("/login")}>
+            {data?.fetchUser.email}
+          </S.Name>
+          <S.SignUp onClick={onClickLogout}>로그아웃</S.SignUp>
+        </S.LoginWrapper>
+      ) : (
+        <S.LoginWrapper>
+          <S.Login onClick={onClickMoveToPage("/login")}>로그인</S.Login>
+          <S.Logout onClick={onClickMoveToPage("/signUp")}>회원가입</S.Logout>
+        </S.LoginWrapper>
+      )}
     </S.Wrapper>
   );
 }

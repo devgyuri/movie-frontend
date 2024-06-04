@@ -58,6 +58,7 @@ export const LoginWrapper = styled.div`
   flex-direction: row;
   justify-content: right;
   text-align: right;
+  align-items: center;
 `;
 
 export const Login = styled.div`
@@ -68,6 +69,25 @@ export const Login = styled.div`
 `;
 
 export const SignUp = styled.div`
+  width: 80px;
+  color: white;
+  cursor: pointer;
+`;
+
+export const Picture = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-size: cover;
+`;
+
+export const Name = styled.div`
+  width: 80px;
+  color: white;
+  cursor: pointer;
+`;
+
+export const Logout = styled.div`
   width: 80px;
   color: white;
   cursor: pointer;
