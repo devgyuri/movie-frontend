@@ -9,13 +9,13 @@ export default function SignUp(): JSX.Element {
   return (
     <>
       <S.Wrapper>
-        <S.Label>별명</S.Label>
+        <S.Label>이름</S.Label>
         <S.Name
           type="text"
           placeholder="20글자 이내로 설정 가능합니다."
           onChange={onChangeName}
         ></S.Name>
-        <S.Label>E-mail</S.Label>
+        <S.Label>이메일</S.Label>
         <S.Email
           type="text"
           placeholder="abc@gmail.com"

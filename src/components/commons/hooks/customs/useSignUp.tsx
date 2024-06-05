@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useMoveToPage } from "./useMoveToPage";
-import { useMutationSignUp } from "../mutations/useMutationSignUp";
+import { useMutationCreateUser } from "../mutations/useMutationCreateUser";
 
 export interface IUseSignUp {
   onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +14,7 @@ export const useSignUp = (): IUseSignUp => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const [signUp] = useMutationSignUp();
+  const [createUser] = useMutationCreateUser();
 
   const { moveToPage } = useMoveToPage();
 
@@ -32,15 +32,17 @@ export const useSignUp = (): IUseSignUp => {
 
   const onClickSignUp = async (): Promise<void> => {
     try {
-      const result = await signUp({
+      const result = await createUser({
         variables: {
-          email,
-          password,
-          name,
+          createUserInput: {
+            email,
+            password,
+            name,
+          },
         },
       });
 
-      if (result.data?.signUp === false) {
+      if (result.data?.createUser === false) {
         alert("회원가입에 실패했습니다. 다시 시도해주세요.");
         return;
       }

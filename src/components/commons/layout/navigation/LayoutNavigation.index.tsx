@@ -4,6 +4,7 @@ import { ILayoutNavigationProps } from "./LayoutNavigation.types";
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 import { useAuthState } from "../../hooks/customs/useAuthState";
 import { useQueryFetchUser } from "../../hooks/queries/useQueryFetchUser";
+import { useLogout } from "../../hooks/customs/useLogout";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
@@ -18,14 +19,11 @@ export default function LayoutNavigation(
 
   const { authState, setAuthState } = useAuthState();
 
+  const { onClickLogout } = useLogout({ setAuthState });
+
   const { data } = useQueryFetchUser();
 
   const profileImg = data?.fetchUser.picture ?? "/images/flower.jpg";
-
-  const onClickLogout = () => {
-    localStorage.removeItem("accessToken");
-    setAuthState(false);
-  };
 
   return (
     <S.Wrapper>
@@ -50,8 +48,8 @@ export default function LayoutNavigation(
       {authState ? (
         <S.LoginWrapper>
           <S.Picture src={profileImg}></S.Picture>
-          <S.Name onClick={onClickMoveToPage("/login")}>
-            {data?.fetchUser.email}
+          <S.Name onClick={onClickMoveToPage("/myPage")}>
+            {data?.fetchUser.name}
           </S.Name>
           <S.SignUp onClick={onClickLogout}>로그아웃</S.SignUp>
         </S.LoginWrapper>

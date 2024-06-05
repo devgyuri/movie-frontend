@@ -29,6 +29,8 @@ export const useLogin = (): IUseLogin => {
 
   const onClickLogin = async (): Promise<void> => {
     try {
+      console.log("onClickLogin");
+
       const result = await loginUser({
         variables: {
           email,

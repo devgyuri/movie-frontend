@@ -53,6 +53,12 @@ export type IComment = {
   user: IUser;
 };
 
+export type ICreateUserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type IDirector = {
   __typename?: 'Director';
   id: Scalars['Int']['output'];
@@ -100,19 +106,25 @@ export type IMovie = {
 export type IMutation = {
   __typename?: 'Mutation';
   createLike: Scalars['Boolean']['output'];
+  createUser: Scalars['Boolean']['output'];
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
   loginUser: IAccessToken;
   logoutUser: Scalars['String']['output'];
   restoreAccessToken: IAccessToken;
-  signUp: Scalars['Boolean']['output'];
   updateActorImage: IActor;
+  updateUser: IProfile;
 };
 
 
 export type IMutationCreateLikeArgs = {
   movieId: Scalars['String']['input'];
   userId: Scalars['Int']['input'];
+};
+
+
+export type IMutationCreateUserArgs = {
+  createUserInput: ICreateUserInput;
 };
 
 
@@ -128,16 +140,14 @@ export type IMutationLoginUserArgs = {
 };
 
 
-export type IMutationSignUpArgs = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
-
 export type IMutationUpdateActorImageArgs = {
   id: Scalars['Float']['input'];
   url: Scalars['String']['input'];
+};
+
+
+export type IMutationUpdateUserArgs = {
+  updateUserInput: IUpdateUserInput;
 };
 
 export type IPoster = {
@@ -153,7 +163,7 @@ export type IProfile = {
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  picture?: Maybe<Scalars['String']['output']>;
+  picture: Scalars['String']['output'];
 };
 
 export type IQuery = {
@@ -217,6 +227,13 @@ export type IStill = {
   isRep: Scalars['Boolean']['output'];
   movie: IMovie;
   url: Scalars['String']['output'];
+};
+
+export type IUpdateUserInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  picture?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type IUser = {

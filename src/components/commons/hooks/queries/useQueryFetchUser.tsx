@@ -6,6 +6,7 @@ export const FETCH_USER = gql`
     fetchUser {
       email
       name
+      picture
     }
   }
 `;

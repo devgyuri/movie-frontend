@@ -1,8 +1,18 @@
+import { useEffect } from "react";
+import { useAuthState } from "../hooks/customs/useAuthState";
 import { useLogin } from "../hooks/customs/useLogin";
 import * as S from "./Login.styles";
+import { useMoveToPage } from "../hooks/customs/useMoveToPage";
 
 export default function Login(): JSX.Element {
   const { onChangeEmail, onChangePassword, onClickLogin } = useLogin();
+  const { authState } = useAuthState();
+
+  const { moveToPage } = useMoveToPage();
+
+  if (authState) {
+    moveToPage("/");
+  }
 
   return (
     <>
