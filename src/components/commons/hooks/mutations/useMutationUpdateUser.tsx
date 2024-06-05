@@ -5,8 +5,12 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export const UPDATE_USER = gql`
-  mutation updateUser($upteUserInput: UpdateUserInput!) {
-    updateUser(updateUserInput: $updateUserInput)
+  mutation updateUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
+      name
+      email
+      picture
+    }
   }
 `;
 
