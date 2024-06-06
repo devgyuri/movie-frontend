@@ -23,7 +23,10 @@ export default function LayoutNavigation(
 
   const { data } = useQueryFetchUser();
 
-  const profileImg = data?.fetchUser.picture ?? "/images/flower.jpg";
+  const profileImg =
+    data?.fetchUser.picture === ""
+      ? "/images/flower.jpg"
+      : data?.fetchUser.picture;
 
   return (
     <S.Wrapper>

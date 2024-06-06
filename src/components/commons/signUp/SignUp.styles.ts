@@ -14,22 +14,31 @@ export const Label = styled.div`
   margin-bottom: 5px;
 `;
 
+export const InputWrapper = styled.div``;
+
 export const Name = styled.input`
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   font-size: 20px;
 `;
 
 export const Email = styled.input`
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   font-size: 20px;
 `;
 
 export const Password = styled.input`
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   font-size: 20px;
+`;
+
+export const Error = styled.div`
+  height: 30px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: red;
 `;
 
 export const SubmitButton = styled.button`

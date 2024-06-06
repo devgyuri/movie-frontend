@@ -1,7 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useMoveToPage } from "./useMoveToPage";
-import { useMutationCreateUser } from "../mutations/useMutationCreateUser";
-import { useQueryFetchUser } from "../queries/useQueryFetchUser";
 import { IUpdateUserInput } from "../../../../commons/types/generated/types";
 import { useMutationUpdateUser } from "../mutations/useMutationUpdateUser";
 

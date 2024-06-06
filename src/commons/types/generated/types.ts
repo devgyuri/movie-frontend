@@ -180,6 +180,7 @@ export type IQuery = {
   fetchStill: Scalars['String']['output'];
   fetchUser: IProfile;
   fetchVod: Scalars['String']['output'];
+  nameDuplicationCheck: Scalars['Boolean']['output'];
 };
 
 
@@ -212,6 +213,11 @@ export type IQueryFetchMovieArgs = {
 export type IQueryFetchSeenArgs = {
   movieId: Scalars['String']['input'];
   userId: Scalars['Float']['input'];
+};
+
+
+export type IQueryNameDuplicationCheckArgs = {
+  name: Scalars['String']['input'];
 };
 
 export type ISeen = {
