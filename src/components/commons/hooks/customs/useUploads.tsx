@@ -4,17 +4,12 @@ import {
   RefObject,
   SetStateAction,
   useRef,
-  useState,
 } from "react";
-import { useMoveToPage } from "./useMoveToPage";
-import { useMutationCreateUser } from "../mutations/useMutationCreateUser";
-import { useQueryNameDuplicationCheck } from "../queries/useQueryNameDuplicationCheck";
 import { useMutationUploadPicture } from "../mutations/useMutationUploadPicture";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 export interface IUseUploadsArgs {
-  setFileUrl: Dispatch<SetStateAction<string>>;
   setPicture: Dispatch<SetStateAction<string>>;
 }
 
@@ -65,13 +60,8 @@ export const useUploads = (args: IUseUploadsArgs): IUseUploads => {
 
     try {
       const result = await uploadPicture({ variables: { picture: picture } });
-      args.setFileUrl(result.data?.uploadPicture.url ?? "");
       args.setPicture(result.data?.uploadPicture.url ?? "");
       console.log(result.data?.uploadPicture.url);
-      // props.onChangePictureUrls(
-      //   result.data?.uploadPicture.url ?? "",
-      //   props.index,
-      // );
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

@@ -4,7 +4,8 @@ import { useMutationDeleteLike } from "../mutations/useMutationDeleteLike";
 import { useQueryFetchLike } from "../queries/useQueryFetchLike";
 import { useQueryFetchLikeCountByMovie } from "../queries/useQueryFetchLikeCountByMovie";
 import { useMoveToPage } from "./useMoveToPage";
-import { useAuthState } from "./useAuthState";
+import { useRecoilState } from "recoil";
+import { authState } from "../../../../commons/stores";
 
 export interface IUseLike {
   isLike: boolean;
@@ -18,7 +19,7 @@ export interface IUseLikeArgs {
 
 export const useLike = (args: IUseLikeArgs): IUseLike => {
   const { moveToPage } = useMoveToPage();
-  const { authState } = useAuthState();
+  const [isAuth] = useRecoilState(authState);
 
   const [isLike, setIsLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -42,7 +43,7 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
   const [deleteLike] = useMutationDeleteLike();
 
   const onClickToggle = async (): Promise<void> => {
-    if (authState === false) {
+    if (!isAuth) {
       alert("로그인 후 이용 가능합니다.");
       moveToPage("/login");
       return;

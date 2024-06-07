@@ -16,17 +16,18 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
-export type IAccessToken = {
-  __typename?: 'AccessToken';
-  accessToken: Scalars['String']['output'];
-};
-
 export type IActor = {
   __typename?: 'Actor';
   id: Scalars['Int']['output'];
   movies: Array<IMovie>;
   name: Scalars['String']['output'];
   url: Scalars['String']['output'];
+};
+
+export type IAuthInfo = {
+  __typename?: 'AuthInfo';
+  accessToken: Scalars['String']['output'];
+  profile: IProfile;
 };
 
 export type IBoxOffice = {
@@ -110,9 +111,9 @@ export type IMutation = {
   createUser: Scalars['Boolean']['output'];
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
-  loginUser: IAccessToken;
+  loginUser: IAuthInfo;
   logoutUser: Scalars['String']['output'];
-  restoreAccessToken: IAccessToken;
+  restoreAccessToken: IToken;
   updateActorImage: IActor;
   updateUser: IProfile;
   uploadPicture: IUrl;
@@ -240,6 +241,11 @@ export type IStill = {
   isRep: Scalars['Boolean']['output'];
   movie: IMovie;
   url: Scalars['String']['output'];
+};
+
+export type IToken = {
+  __typename?: 'Token';
+  accessToken: Scalars['String']['output'];
 };
 
 export type IUpdateUserInput = {

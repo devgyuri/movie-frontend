@@ -1,6 +1,6 @@
 import { createUploadLink } from "apollo-upload-client";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/stores";
+import { accessTokenState, authState } from "../../../commons/stores";
 import {
   ApolloClient,
   ApolloLink,
@@ -17,10 +17,12 @@ interface IApolloSettingProps {
 
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isAuth, setIsAuth] = useRecoilState(authState);
 
   useEffect(() => {
     const result = localStorage.getItem("accessToken");
     setAccessToken(result ?? "");
+    setIsAuth(result === null ? false : true);
   });
 
   const uploadLink: ApolloLink = createUploadLink({

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ILayoutNavigationPictureProps } from "./LayoutNavigation.types";
 
 export const Wrapper = styled.div`
   padding: 40px;
@@ -74,10 +75,11 @@ export const SignUp = styled.div`
   cursor: pointer;
 `;
 
-export const Picture = styled.img`
+export const Picture = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 15px;
+  background-image: url(${(props: ILayoutNavigationPictureProps) => props.url});
   background-size: cover;
 `;
 

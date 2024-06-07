@@ -1,10 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import * as S from "./LayoutNavigation.styles";
 import { ILayoutNavigationProps } from "./LayoutNavigation.types";
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
-import { useAuthState } from "../../hooks/customs/useAuthState";
-import { useQueryFetchUser } from "../../hooks/queries/useQueryFetchUser";
 import { useLogout } from "../../hooks/customs/useLogout";
+import { useRecoilState } from "recoil";
+import { authState, userInfoState } from "../../../../commons/stores";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
@@ -17,16 +17,10 @@ export default function LayoutNavigation(
 ): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { authState, setAuthState } = useAuthState();
+  const [userInfo] = useRecoilState(userInfoState);
+  const [isAuth] = useRecoilState(authState);
 
-  const { onClickLogout } = useLogout({ setAuthState });
-
-  const { data } = useQueryFetchUser();
-
-  const profileImg =
-    data?.fetchUser.picture === ""
-      ? "/images/flower.jpg"
-      : `http://storage.googleapis.com/example121232/${data?.fetchUser.picture}`;
+  const { onClickLogout } = useLogout();
 
   return (
     <S.Wrapper>
@@ -48,11 +42,17 @@ export default function LayoutNavigation(
           ),
         )}
       </S.MenuWrapper>
-      {authState ? (
+      {isAuth ? (
         <S.LoginWrapper>
-          <S.Picture src={profileImg}></S.Picture>
+          <S.Picture
+            url={
+              userInfo.image === ""
+                ? "/images/flower.jpg"
+                : `http://storage.googleapis.com/example121232/${userInfo.image}`
+            }
+          ></S.Picture>
           <S.Name onClick={onClickMoveToPage("/myPage")}>
-            {data?.fetchUser.name}
+            {userInfo.name}
           </S.Name>
           <S.SignUp onClick={onClickLogout}>로그아웃</S.SignUp>
         </S.LoginWrapper>

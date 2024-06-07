@@ -1,59 +1,41 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
 import { useMoveToPage } from "./useMoveToPage";
-import { IUpdateUserInput } from "../../../../commons/types/generated/types";
 import { useMutationUpdateUser } from "../mutations/useMutationUpdateUser";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../../commons/stores";
 
-interface IUseUpdateUser {
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
-  setPicture: Dispatch<SetStateAction<string>>;
-  onClickEdit: () => Promise<void>;
+interface IUseUpdateUserArgs {
+  name: string;
+  password: string;
+  email: string;
+  picture: string;
+  isActive: boolean;
 }
 
-export const useUpdateUser = (): IUseUpdateUser => {
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [picture, setPicture] = useState("");
+interface IUseUpdateUser {
+  onClickUpdate: () => Promise<void>;
+}
+
+export const useUpdateUser = (args: IUseUpdateUserArgs): IUseUpdateUser => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const [updateUser] = useMutationUpdateUser();
 
   const { moveToPage } = useMoveToPage();
 
-  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
-    setName(event.currentTarget.value);
-  };
-
-  const onClickEdit = async (): Promise<void> => {
-    if (password === "" && name === "" && picture === "") {
-      alert("수정한 내용이 없습니다.");
+  const onClickUpdate = async (): Promise<void> => {
+    if (!args.isActive) {
       return;
-    }
-
-    const updateUserInput: IUpdateUserInput = {};
-    if (password !== "") {
-      updateUserInput.password = password;
-    }
-    if (name !== "") {
-      updateUserInput.name = name;
-    }
-    if (picture !== "") {
-      updateUserInput.picture = picture;
     }
 
     try {
       const result = await updateUser({
         variables: {
-          updateUserInput,
+          updateUserInput: {
+            name: args.name,
+            email: args.email,
+            password: args.password,
+            picture: args.picture,
+          },
         },
       });
 
@@ -62,6 +44,10 @@ export const useUpdateUser = (): IUseUpdateUser => {
         return;
       }
 
+      setUserInfo({
+        name: args.name,
+        image: args.picture,
+      });
       alert("회원 정보 수정에 성공하였습니다.");
       moveToPage("/myPage");
     } catch (error) {
@@ -72,9 +58,6 @@ export const useUpdateUser = (): IUseUpdateUser => {
   };
 
   return {
-    onChangePassword,
-    onChangeName,
-    setPicture,
-    onClickEdit,
+    onClickUpdate,
   };
 };

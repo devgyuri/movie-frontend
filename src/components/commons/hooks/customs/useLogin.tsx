@@ -1,6 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import { useMutationLogin } from "../mutations/useMutationLoginUser";
-import { accessTokenState } from "../../../../commons/stores";
+import {
+  accessTokenState,
+  authState,
+  userInfoState,
+} from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { useMoveToPage } from "./useMoveToPage";
 
@@ -16,6 +20,8 @@ export const useLogin = (): IUseLogin => {
   const [loginUser] = useMutationLogin();
 
   const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setIsAuth] = useRecoilState(authState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
 
   const { moveToPage } = useMoveToPage();
 
@@ -47,6 +53,11 @@ export const useLogin = (): IUseLogin => {
 
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
+      setIsAuth(true);
+      setUserInfo({
+        name: result.data?.loginUser.profile.name,
+        image: result.data?.loginUser.profile.picture,
+      });
 
       alert("로그인에 성공하였습니다.");
       moveToPage("/");

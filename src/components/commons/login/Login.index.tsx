@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { useAuthState } from "../hooks/customs/useAuthState";
 import { useLogin } from "../hooks/customs/useLogin";
 import * as S from "./Login.styles";
 import { useMoveToPage } from "../hooks/customs/useMoveToPage";
+import { useRecoilState } from "recoil";
+import { authState } from "../../../commons/stores";
 
 export default function Login(): JSX.Element {
+  const [isAuth] = useRecoilState(authState);
+
   const { onChangeEmail, onChangePassword, onClickLogin } = useLogin();
-  const { authState } = useAuthState();
 
   const { moveToPage } = useMoveToPage();
 
-  if (authState) {
+  if (isAuth) {
     moveToPage("/");
   }
 
