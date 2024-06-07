@@ -13,6 +13,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type IAccessToken = {
@@ -114,6 +115,7 @@ export type IMutation = {
   restoreAccessToken: IAccessToken;
   updateActorImage: IActor;
   updateUser: IProfile;
+  uploadPicture: IUrl;
 };
 
 
@@ -148,6 +150,11 @@ export type IMutationUpdateActorImageArgs = {
 
 export type IMutationUpdateUserArgs = {
   updateUserInput: IUpdateUserInput;
+};
+
+
+export type IMutationUploadPictureArgs = {
+  picture: Scalars['Upload']['input'];
 };
 
 export type IPoster = {
@@ -240,6 +247,11 @@ export type IUpdateUserInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   picture?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type IUrl = {
+  __typename?: 'Url';
+  url: Scalars['String']['output'];
 };
 
 export type IUser = {

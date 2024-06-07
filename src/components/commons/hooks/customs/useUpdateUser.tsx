@@ -1,4 +1,10 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useMoveToPage } from "./useMoveToPage";
 import { IUpdateUserInput } from "../../../../commons/types/generated/types";
 import { useMutationUpdateUser } from "../mutations/useMutationUpdateUser";
@@ -6,7 +12,7 @@ import { useMutationUpdateUser } from "../mutations/useMutationUpdateUser";
 interface IUseUpdateUser {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePicture: (event: ChangeEvent<HTMLInputElement>) => void;
+  setPicture: Dispatch<SetStateAction<string>>;
   onClickEdit: () => Promise<void>;
 }
 
@@ -25,10 +31,6 @@ export const useUpdateUser = (): IUseUpdateUser => {
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.currentTarget.value);
-  };
-
-  const onChangePicture = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPicture(event.currentTarget.value);
   };
 
   const onClickEdit = async (): Promise<void> => {
@@ -72,7 +74,7 @@ export const useUpdateUser = (): IUseUpdateUser => {
   return {
     onChangePassword,
     onChangeName,
-    onChangePicture,
+    setPicture,
     onClickEdit,
   };
 };

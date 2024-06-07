@@ -1,8 +1,11 @@
+import { useAuth } from "../../../src/components/commons/hooks/customs/useAuth";
 import { useQueryFetchUser } from "../../../src/components/commons/hooks/queries/useQueryFetchUser";
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import UserEdit from "../../../src/components/units/userEdit/UserEdit.index";
 
 export default function MyPageEditPage(): JSX.Element {
+  useAuth();
+
   const { data: userData } = useQueryFetchUser();
 
   return (

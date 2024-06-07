@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IUserEditPictureProps } from "./UserEdit.types";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -8,10 +9,27 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Label = styled.div`
   font-size: 20px;
   color: var(--gray);
   margin-bottom: 5px;
+`;
+
+export const Picture = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  background-image: url(${(props: IUserEditPictureProps) => props.url});
+  background-size: cover;
+`;
+
+export const UploadFileHidden = styled.input`
+  display: none;
 `;
 
 export const Name = styled.input`

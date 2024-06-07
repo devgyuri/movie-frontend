@@ -60,7 +60,7 @@ export const useSignUp = (args: IUseSignUpArgs): IUseSignUp => {
     }
 
     args.setNameError("");
-    setName(event.target.value);
+    setName(event.currentTarget.value);
   };
 
   const onClickSignUp = async (): Promise<void> => {

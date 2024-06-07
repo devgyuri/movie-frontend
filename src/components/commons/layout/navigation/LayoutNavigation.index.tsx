@@ -26,7 +26,7 @@ export default function LayoutNavigation(
   const profileImg =
     data?.fetchUser.picture === ""
       ? "/images/flower.jpg"
-      : data?.fetchUser.picture;
+      : `http://storage.googleapis.com/example121232/${data?.fetchUser.picture}`;
 
   return (
     <S.Wrapper>
