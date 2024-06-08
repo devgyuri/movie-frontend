@@ -6,7 +6,10 @@ export default function BoxOfficeHeader(
 ): JSX.Element {
   return (
     <>
-      <DateSelector onChangeDateSelector={props.onChangeDateSelector} />
+      <DateSelector
+        yesterday={props.yesterday}
+        onChangeDateSelector={props.onChangeDateSelector}
+      />
     </>
   );
 }
