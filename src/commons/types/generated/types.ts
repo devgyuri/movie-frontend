@@ -55,6 +55,13 @@ export type IComment = {
   user: IUser;
 };
 
+export type ICreateCommentInput = {
+  contents: Scalars['String']['input'];
+  created_at: Scalars['DateTime']['input'];
+  movieId: Scalars['String']['input'];
+  star: Scalars['Float']['input'];
+};
+
 export type ICreateUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -107,8 +114,10 @@ export type IMovie = {
 
 export type IMutation = {
   __typename?: 'Mutation';
+  createComment: IComment;
   createLike: Scalars['Boolean']['output'];
   createUser: Scalars['Boolean']['output'];
+  deleteComment: Scalars['Boolean']['output'];
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
   loginUser: IAuthInfo;
@@ -120,6 +129,11 @@ export type IMutation = {
 };
 
 
+export type IMutationCreateCommentArgs = {
+  createCommentInput: ICreateCommentInput;
+};
+
+
 export type IMutationCreateLikeArgs = {
   movieId: Scalars['String']['input'];
   userId: Scalars['Int']['input'];
@@ -128,6 +142,11 @@ export type IMutationCreateLikeArgs = {
 
 export type IMutationCreateUserArgs = {
   createUserInput: ICreateUserInput;
+};
+
+
+export type IMutationDeleteCommentArgs = {
+  movieId: Scalars['String']['input'];
 };
 
 
@@ -180,6 +199,8 @@ export type IQuery = {
   fetchActorImage: Scalars['String']['output'];
   fetchBoxOffice: Array<IMovie>;
   fetchBoxOfficeToMovie: Scalars['String']['output'];
+  fetchComment: Scalars['String']['output'];
+  fetchComments: Array<IComment>;
   fetchLike: Scalars['Boolean']['output'];
   fetchLikeCountByMovie: Scalars['Int']['output'];
   fetchMovie: IMovie;
@@ -199,6 +220,11 @@ export type IQueryFetchActorImageArgs = {
 
 export type IQueryFetchBoxOfficeArgs = {
   date: Scalars['String']['input'];
+};
+
+
+export type IQueryFetchCommentsArgs = {
+  movieId: Scalars['String']['input'];
 };
 
 

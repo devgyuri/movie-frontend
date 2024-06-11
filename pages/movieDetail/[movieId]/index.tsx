@@ -5,11 +5,19 @@ import LayoutNavigation from "../../../src/components/commons/layout/navigation/
 import MovieDetail from "../../../src/components/units/movieDetail/MovieDetail.index";
 import ActorSlider from "../../../src/components/units/actorSlider/ActorSlider.index";
 import MediaTab from "../../../src/components/units/mediaTab/MediaTab.index";
+import CommentView from "../../../src/components/commons/comment/view/CommentView.index";
+import { authState, userInfoState } from "../../../src/commons/stores";
+import { useRecoilState } from "recoil";
+import CommentWrite from "../../../src/components/commons/comment/write/CommentWrite.index";
+import { useQueryFetchComments } from "../../../src/components/commons/hooks/queries/useQueryFetchComments";
 
 export default function MovieDetailPage(): JSX.Element {
   // const tempMovie = {
   //   actors: [{ name: "이도현" }, { name: "김고은" }],
   // };
+
+  const [isAuth] = useRecoilState(authState);
+  const [userInfo] = useRecoilState(userInfoState);
 
   const router = useRouter();
 
@@ -17,12 +25,28 @@ export default function MovieDetailPage(): JSX.Element {
 
   const { data: movieData } = useQueryFetchMovieDetail({ id: movieId });
 
+  const { data: commentData, refetch: commentRefetch } = useQueryFetchComments({
+    movieId,
+  });
+
+  console.log("commentData: ", commentData);
+
   return (
     <>
       <LayoutNavigation />
       <MovieDetail data={movieData?.fetchMovie} />
       <ActorSlider data={movieData?.fetchMovie.actors} />
-      <MediaTab />
+      {/* <MediaTab /> */}
+      {isAuth && (
+        <CommentWrite
+          commentRefetch={commentRefetch}
+          userInfo={userInfo}
+          movieId={movieId}
+        />
+      )}
+      {commentData?.fetchComments.map((el, index) => {
+        return <CommentView key={index} data={el} />;
+      })}
     </>
   );
 }
