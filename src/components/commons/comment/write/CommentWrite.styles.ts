@@ -1,9 +1,16 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
-import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import { ICommentWritePictureProps } from "./CommentWrite.types";
 
 export const Wrapper = styled.div`
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const CommentWrapper = styled.div`
+  width: 85%;
   display: flex;
   flex-direction: column;
 `;
@@ -16,12 +23,14 @@ export const TitleWrapper = styled.div`
 export const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const Picture = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  border-radius: 20px;
   background-image: url(${(props: ICommentWritePictureProps) => props.url});
   background-size: cover;
 `;
@@ -29,9 +38,9 @@ export const Picture = styled.div`
 export const Writer = styled.div``;
 
 export const Star = styled(Rate)`
-  font-size: 16px;
+  font-size: 24px;
   height: 24px;
-  color: red;
+  color: --var(primary-color);
 `;
 
 export const ContentsWrapper = styled.div`
@@ -40,6 +49,7 @@ export const ContentsWrapper = styled.div`
 `;
 
 export const Contents = styled.textarea`
+  margin-top: 10px;
   height: 80px;
   font-size: 16px;
   color: var(--dark-gray);

@@ -9,9 +9,6 @@ export interface ICommentWriteProps {
     name: string;
     image: string;
   };
-  commentRefetch: (
-    variables?: Partial<IQueryFetchCommentsArgs> | undefined,
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchComments">>>;
   movieId: string;
 }
 

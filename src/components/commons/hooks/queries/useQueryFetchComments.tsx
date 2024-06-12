@@ -1,19 +1,20 @@
 import { QueryResult, gql, useQuery } from "@apollo/client";
 import {
   IQuery,
-  IQueryFetchBoxOfficeArgs,
   IQueryFetchCommentsArgs,
 } from "../../../../commons/types/generated/types";
 
 export const FETCH_COMMENTS = gql`
   query fetchComments($movieId: String!) {
     fetchComments(movieId: $movieId) {
+      id
       contents
       user {
         name
         picture
       }
       created_at
+      star
     }
   }
 `;

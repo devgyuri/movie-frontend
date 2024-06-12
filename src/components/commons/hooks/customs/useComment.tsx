@@ -2,31 +2,22 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useMoveToPage } from "./useMoveToPage";
 import { useMutationCreateComment } from "../mutations/useMutationCreateComment";
 import { useMutationDeleteComment } from "../mutations/useMutationDeleteComment";
-import {
-  IQuery,
-  IQueryFetchCommentsArgs,
-} from "../../../../commons/types/generated/types";
-import { ApolloQueryResult } from "@apollo/client";
+import { IComment } from "../../../../commons/types/generated/types";
 
 export interface IUseCommentArgs {
   contents: string;
   star: number;
   movieId: string;
   setContents: Dispatch<SetStateAction<string>>;
-  commentRefetch: (
-    variables?: Partial<IQueryFetchCommentsArgs> | undefined,
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchComments">>>;
 }
 
 export interface IUseComment {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickCreate: () => Promise<void>;
-  onClickDelete: () => Promise<void>;
+  onClickDelete: (commentId: number) => () => Promise<void>;
 }
 
 export const useComment = (args: IUseCommentArgs): IUseComment => {
-  const { moveToPage } = useMoveToPage();
-
   const [createComment] = useMutationCreateComment();
   const [deleteComment] = useMutationDeleteComment();
 
@@ -45,12 +36,17 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
             movieId: args.movieId,
           },
         },
+        update: (cache, { data }) => {
+          cache.modify({
+            fields: {
+              fetchComments: (prev) => {
+                return [data?.createComment, ...prev];
+              },
+            },
+          });
+        },
       });
       console.log(result);
-
-      await args.commentRefetch({
-        movieId: args.movieId,
-      });
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -58,16 +54,26 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
     }
   };
 
-  const onClickDelete = async (): Promise<void> => {
+  const onClickDelete = (commentId: number) => async () => {
     try {
       const result = await deleteComment({
         variables: {
-          movieId: args.movieId,
+          commentId,
         },
-      });
-
-      await args.commentRefetch({
-        movieId: args.movieId,
+        update: (cache, { data }) => {
+          cache.modify({
+            fields: {
+              fetchComments: (prev: IComment[]) => {
+                const newComment = prev.filter((el) => {
+                  console.log("comment filter", el);
+                  console.log(data);
+                  return el.id !== data?.deleteComment.id;
+                });
+                return newComment;
+              },
+            },
+          });
+        },
       });
     } catch (error) {
       if (error instanceof Error) {

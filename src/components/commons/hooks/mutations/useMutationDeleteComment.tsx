@@ -5,8 +5,10 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export const DELETE_COMMENT = gql`
-  mutation deleteComment($movieId: String!) {
-    deleteComment(movieId: $movieId)
+  mutation deleteComment($commentId: Int!) {
+    deleteComment(commentId: $commentId) {
+      id
+    }
   }
 `;
 

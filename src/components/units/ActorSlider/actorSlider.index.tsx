@@ -24,7 +24,6 @@ export default function ActorSlider(props: IActorSliderProps): JSX.Element {
 
   return (
     <>
-      Test
       <S.Wrapper>
         <S.SliderContainer>
           <S.StyledSlider {...settings}>

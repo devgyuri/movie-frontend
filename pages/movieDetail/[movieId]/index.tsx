@@ -1,15 +1,14 @@
 import { useRouter } from "next/router";
-import { IMovie } from "../../../src/commons/types/generated/types";
 import { useQueryFetchMovieDetail } from "../../../src/components/commons/hooks/queries/useQueryFetchMovieDetail";
 import LayoutNavigation from "../../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import MovieDetail from "../../../src/components/units/movieDetail/MovieDetail.index";
 import ActorSlider from "../../../src/components/units/actorSlider/ActorSlider.index";
 import MediaTab from "../../../src/components/units/mediaTab/MediaTab.index";
-import CommentView from "../../../src/components/commons/comment/view/CommentView.index";
 import { authState, userInfoState } from "../../../src/commons/stores";
 import { useRecoilState } from "recoil";
 import CommentWrite from "../../../src/components/commons/comment/write/CommentWrite.index";
 import { useQueryFetchComments } from "../../../src/components/commons/hooks/queries/useQueryFetchComments";
+import CommentView from "../../../src/components/commons/comment/view/CommentView.index";
 
 export default function MovieDetailPage(): JSX.Element {
   // const tempMovie = {
@@ -25,7 +24,7 @@ export default function MovieDetailPage(): JSX.Element {
 
   const { data: movieData } = useQueryFetchMovieDetail({ id: movieId });
 
-  const { data: commentData, refetch: commentRefetch } = useQueryFetchComments({
+  const { data: commentData } = useQueryFetchComments({
     movieId,
   });
 
@@ -37,13 +36,7 @@ export default function MovieDetailPage(): JSX.Element {
       <MovieDetail data={movieData?.fetchMovie} />
       <ActorSlider data={movieData?.fetchMovie.actors} />
       {/* <MediaTab /> */}
-      {isAuth && (
-        <CommentWrite
-          commentRefetch={commentRefetch}
-          userInfo={userInfo}
-          movieId={movieId}
-        />
-      )}
+      {isAuth && <CommentWrite userInfo={userInfo} movieId={movieId} />}
       {commentData?.fetchComments.map((el, index) => {
         return <CommentView key={index} data={el} />;
       })}

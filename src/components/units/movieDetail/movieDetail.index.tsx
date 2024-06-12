@@ -60,7 +60,6 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
 
   return (
     <>
-      Movie Detail Hello
       <S.Wrapper>
         <S.BackgroundImage url={posterUrl ?? ""}>
           <S.ContentWrapper>

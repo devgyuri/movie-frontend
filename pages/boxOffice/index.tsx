@@ -5,7 +5,6 @@ export default function BoxOfficePage(): JSX.Element {
   return (
     <>
       <LayoutNavigation menuIndex={0} />
-      <h1>boxOffice</h1>
       <BoxOffice />
     </>
   );

@@ -82,6 +82,11 @@ export type IGenre = {
   name: Scalars['String']['output'];
 };
 
+export type IId = {
+  __typename?: 'Id';
+  id: Scalars['Int']['output'];
+};
+
 export type ILike = {
   __typename?: 'Like';
   id: Scalars['Int']['output'];
@@ -117,7 +122,7 @@ export type IMutation = {
   createComment: IComment;
   createLike: Scalars['Boolean']['output'];
   createUser: Scalars['Boolean']['output'];
-  deleteComment: Scalars['Boolean']['output'];
+  deleteComment: IId;
   deleteLike: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
   loginUser: IAuthInfo;
@@ -146,7 +151,7 @@ export type IMutationCreateUserArgs = {
 
 
 export type IMutationDeleteCommentArgs = {
-  movieId: Scalars['String']['input'];
+  commentId: Scalars['Float']['input'];
 };
 
 
