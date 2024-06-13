@@ -55,6 +55,7 @@ export const useLogin = (): IUseLogin => {
       localStorage.setItem("accessToken", accessToken);
       setIsAuth(true);
       setUserInfo({
+        id: result.data?.loginUser.profile.id,
         name: result.data?.loginUser.profile.name,
         image: result.data?.loginUser.profile.picture,
       });

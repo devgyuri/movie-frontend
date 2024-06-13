@@ -1,4 +1,4 @@
-import { QueryResult, gql, useQuery } from "@apollo/client";
+import { LazyQueryResultTuple, gql, useLazyQuery } from "@apollo/client";
 import {
   IQuery,
   IQueryFetchLikeArgs,
@@ -10,10 +10,10 @@ export const FETCH_LIKE = gql`
   }
 `;
 
-export const useQueryFetchLike = (
+export const useLazyQueryFetchLike = (
   variables: IQueryFetchLikeArgs,
-): QueryResult<Pick<IQuery, "fetchLike">, IQueryFetchLikeArgs> => {
-  const result = useQuery<Pick<IQuery, "fetchLike">, IQueryFetchLikeArgs>(
+): LazyQueryResultTuple<Pick<IQuery, "fetchLike">, IQueryFetchLikeArgs> => {
+  const result = useLazyQuery<Pick<IQuery, "fetchLike">, IQueryFetchLikeArgs>(
     FETCH_LIKE,
     { variables },
   );

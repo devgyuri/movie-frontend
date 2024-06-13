@@ -10,6 +10,7 @@ export const FETCH_COMMENTS = gql`
       id
       contents
       user {
+        id
         name
         picture
       }

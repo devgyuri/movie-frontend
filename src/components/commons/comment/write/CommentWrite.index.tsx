@@ -7,12 +7,15 @@ export default function CommentWrite(props: ICommentWriteProps): JSX.Element {
   const [contents, setContents] = useState("");
   const [star, setStar] = useState(0);
 
-  const { onChangeContents, onClickCreate } = useComment({
-    contents,
-    star,
-    movieId: props.movieId,
-    setContents,
-  });
+  const { onChangeContents, onChangeStar, onClickCreate, onClickUpdate } =
+    useComment({
+      contents,
+      star,
+      movieId: props.movieId,
+      setContents,
+      setStar,
+      setMyComment: props.setMyComment,
+    });
 
   return (
     <>
@@ -27,13 +30,21 @@ export default function CommentWrite(props: ICommentWriteProps): JSX.Element {
               }
             />
             <S.Writer>{props.userInfo.name}</S.Writer>
-            <S.Star allowHalf></S.Star>
+            <S.Star allowHalf onChange={onChangeStar}></S.Star>
           </S.TitleWrapper>
           <S.ContentsWrapper>
             <S.Contents onChange={onChangeContents} />
             <S.CounterWrapper>
               <S.Counter>{contents.length} / 200</S.Counter>
-              <S.SubmitButton onClick={onClickCreate}>등록</S.SubmitButton>
+              <S.SubmitButton
+                onClick={
+                  props.isEdit
+                    ? onClickUpdate(props.data?.id ?? -1)
+                    : onClickCreate
+                }
+              >
+                {props.isEdit ? "수정" : "등록"}
+              </S.SubmitButton>
             </S.CounterWrapper>
           </S.ContentsWrapper>
         </S.CommentWrapper>

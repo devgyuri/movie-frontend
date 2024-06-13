@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMutationCreateLike } from "../mutations/useMutationCreateLike";
 import { useMutationDeleteLike } from "../mutations/useMutationDeleteLike";
-import { useQueryFetchLike } from "../queries/useQueryFetchLike";
 import { useQueryFetchLikeCountByMovie } from "../queries/useQueryFetchLikeCountByMovie";
 import { useMoveToPage } from "./useMoveToPage";
 import { useRecoilState } from "recoil";
 import { authState } from "../../../../commons/stores";
+import { useLazyQueryFetchLike } from "../queries/useLazyQueryFetchLike";
 
 export interface IUseLike {
   isLike: boolean;
@@ -24,8 +24,7 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
   const [isLike, setIsLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
-  const { data } = useQueryFetchLike({
-    userId: 1,
+  const [getLike, { data }] = useLazyQueryFetchLike({
     movieId: args.movieId,
   });
 
@@ -34,10 +33,18 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
   });
 
   useEffect(() => {
+    if (isAuth) {
+      getLike();
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
     setIsLike(data?.fetchLike ?? false);
+  }, [data]);
+
+  useEffect(() => {
     setLikeCount(likeData?.fetchLikeCountByMovie ?? 0);
-    console.log("useEffect by like");
-  }, [data, likeData]);
+  }, [likeData]);
 
   const [createLike] = useMutationCreateLike();
   const [deleteLike] = useMutationDeleteLike();
@@ -53,7 +60,6 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
       if (isLike === false) {
         await createLike({
           variables: {
-            userId: 1,
             movieId: args.movieId,
           },
         });
@@ -61,7 +67,6 @@ export const useLike = (args: IUseLikeArgs): IUseLike => {
       } else {
         await deleteLike({
           variables: {
-            userId: 1,
             movieId: args.movieId,
           },
         });

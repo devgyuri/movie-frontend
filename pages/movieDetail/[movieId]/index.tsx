@@ -9,12 +9,10 @@ import { useRecoilState } from "recoil";
 import CommentWrite from "../../../src/components/commons/comment/write/CommentWrite.index";
 import { useQueryFetchComments } from "../../../src/components/commons/hooks/queries/useQueryFetchComments";
 import CommentView from "../../../src/components/commons/comment/view/CommentView.index";
+import { useEffect, useState } from "react";
+import { IComment } from "../../../src/commons/types/generated/types";
 
 export default function MovieDetailPage(): JSX.Element {
-  // const tempMovie = {
-  //   actors: [{ name: "이도현" }, { name: "김고은" }],
-  // };
-
   const [isAuth] = useRecoilState(authState);
   const [userInfo] = useRecoilState(userInfoState);
 
@@ -28,6 +26,17 @@ export default function MovieDetailPage(): JSX.Element {
     movieId,
   });
 
+  const [myComment, setMyComment] = useState<IComment>();
+
+  useEffect(() => {
+    const filteredComment = commentData?.fetchComments.filter((el) => {
+      return el.user.id === userInfo.id;
+    });
+    setMyComment(filteredComment?.[0]);
+    console.log("fetch comment", commentData);
+    console.log(filteredComment);
+  }, [commentData]);
+
   console.log("commentData: ", commentData);
 
   return (
@@ -36,9 +45,37 @@ export default function MovieDetailPage(): JSX.Element {
       <MovieDetail data={movieData?.fetchMovie} />
       <ActorSlider data={movieData?.fetchMovie.actors} />
       {/* <MediaTab /> */}
-      {isAuth && <CommentWrite userInfo={userInfo} movieId={movieId} />}
+      {isAuth && myComment ? (
+        <CommentView
+          userInfo={userInfo}
+          movieId={movieId}
+          data={myComment}
+          isRep={true}
+          isMine={true}
+          setMyComment={setMyComment}
+        />
+      ) : isAuth ? (
+        <CommentWrite
+          userInfo={userInfo}
+          movieId={movieId}
+          isEdit={false}
+          setMyComment={setMyComment}
+        />
+      ) : (
+        <></>
+      )}
       {commentData?.fetchComments.map((el, index) => {
-        return <CommentView key={index} data={el} />;
+        return (
+          <CommentView
+            userInfo={userInfo}
+            movieId={movieId}
+            key={index}
+            data={el}
+            isRep={false}
+            isMine={el.user.id === userInfo.id}
+            setMyComment={setMyComment}
+          />
+        );
       })}
     </>
   );

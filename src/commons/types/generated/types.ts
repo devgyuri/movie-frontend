@@ -129,6 +129,7 @@ export type IMutation = {
   logoutUser: Scalars['String']['output'];
   restoreAccessToken: IToken;
   updateActorImage: IActor;
+  updateComment: IComment;
   updateUser: IProfile;
   uploadPicture: IUrl;
 };
@@ -141,7 +142,6 @@ export type IMutationCreateCommentArgs = {
 
 export type IMutationCreateLikeArgs = {
   movieId: Scalars['String']['input'];
-  userId: Scalars['Int']['input'];
 };
 
 
@@ -151,13 +151,12 @@ export type IMutationCreateUserArgs = {
 
 
 export type IMutationDeleteCommentArgs = {
-  commentId: Scalars['Float']['input'];
+  commentId: Scalars['Int']['input'];
 };
 
 
 export type IMutationDeleteLikeArgs = {
   movieId: Scalars['String']['input'];
-  userId: Scalars['Int']['input'];
 };
 
 
@@ -170,6 +169,11 @@ export type IMutationLoginUserArgs = {
 export type IMutationUpdateActorImageArgs = {
   id: Scalars['Float']['input'];
   url: Scalars['String']['input'];
+};
+
+
+export type IMutationUpdateCommentArgs = {
+  updateCommentInput: IUpdateCommentInput;
 };
 
 
@@ -235,7 +239,6 @@ export type IQueryFetchCommentsArgs = {
 
 export type IQueryFetchLikeArgs = {
   movieId: Scalars['String']['input'];
-  userId: Scalars['Int']['input'];
 };
 
 
@@ -277,6 +280,13 @@ export type IStill = {
 export type IToken = {
   __typename?: 'Token';
   accessToken: Scalars['String']['output'];
+};
+
+export type IUpdateCommentInput = {
+  contents?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+  movieId?: InputMaybe<Scalars['String']['input']>;
+  star?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type IUpdateUserInput = {

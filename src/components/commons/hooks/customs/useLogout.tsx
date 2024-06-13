@@ -18,7 +18,7 @@ export const useLogout = (): IUseLogout => {
     localStorage.removeItem("accessToken");
     setAccessToken("");
     setIsAuth(false);
-    setUserInfo({ name: "", image: "" });
+    setUserInfo({ id: "", name: "", image: "" });
   };
 
   return {

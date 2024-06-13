@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
-import { ICommentViewPictureProps } from "./CommentView.types";
+import {
+  ICommentViewCommentWrapperProps,
+  ICommentViewPictureProps,
+} from "./CommentView.types";
 
 export const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +17,9 @@ export const CommentWrapper = styled.div`
   width: 85%;
   display: flex;
   flex-direction: column;
+  padding: 15px;
+  box-shadow: ${(props: ICommentViewCommentWrapperProps) =>
+    props.isRep ? "0px 0px 10px gray;" : "none"};
 `;
 
 export const TitleWrapper = styled.div`

@@ -3,7 +3,7 @@ import { Rate } from "antd";
 import { ICommentWritePictureProps } from "./CommentWrite.types";
 
 export const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +13,7 @@ export const CommentWrapper = styled.div`
   width: 85%;
   display: flex;
   flex-direction: column;
+  padding: 15px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -40,7 +41,6 @@ export const Writer = styled.div``;
 export const Star = styled(Rate)`
   font-size: 24px;
   height: 24px;
-  color: --var(primary-color);
 `;
 
 export const ContentsWrapper = styled.div`

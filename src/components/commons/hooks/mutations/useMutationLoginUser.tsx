@@ -9,6 +9,7 @@ export const LOGIN_USER = gql`
     loginUser(email: $email, password: $password) {
       accessToken
       profile {
+        id
         name
         picture
       }

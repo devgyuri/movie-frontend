@@ -3,6 +3,7 @@ import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import Slider from "react-slick";
 
 export const Wrapper = styled.div`
+  margin-bottom: 50px;
   width: 100%;
   display: flex;
   flex-direction: row;

@@ -3,12 +3,13 @@ import ReactPlayer from "react-player";
 import * as S from "./MovieDetail.styles";
 import { useEffect, useState } from "react";
 import { useLike } from "../../commons/hooks/customs/useLike";
-import { useQueryFetchLike } from "../../commons/hooks/queries/useQueryFetchLike";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(props.data);
+  useEffect(() => {
+    console.log(props.data);
+  }, []);
 
   // movie information
   const openYear = props.data?.open_dt.substring(0, 4);
@@ -79,10 +80,9 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
                 </S.GenreWrapper>
                 <S.Summary>{props.data?.plot}</S.Summary>
                 <S.IconWrapper>
-                  {isLike && (
+                  {isLike ? (
                     <S.FavoriteOn onClick={onClickToggle}></S.FavoriteOn>
-                  )}
-                  {!isLike && (
+                  ) : (
                     <S.FavoriteOff onClick={onClickToggle}></S.FavoriteOff>
                   )}
                   <S.Count>{likeCount}</S.Count>

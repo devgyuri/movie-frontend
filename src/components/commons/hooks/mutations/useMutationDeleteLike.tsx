@@ -6,8 +6,8 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export const DELETE_LIKE = gql`
-  mutation deleteLike($userId: Int!, $movieId: String!) {
-    deleteLike(userId: $userId, movieId: $movieId)
+  mutation deleteLike($movieId: String!) {
+    deleteLike(movieId: $movieId)
   }
 `;
 
