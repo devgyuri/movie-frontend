@@ -285,7 +285,6 @@ export type IToken = {
 export type IUpdateCommentInput = {
   contents?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['Int']['input'];
-  movieId?: InputMaybe<Scalars['String']['input']>;
   star?: InputMaybe<Scalars['Float']['input']>;
 };
 

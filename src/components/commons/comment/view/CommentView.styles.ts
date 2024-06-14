@@ -2,25 +2,28 @@ import styled from "@emotion/styled";
 import { Rate } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import {
-  ICommentViewCommentWrapperProps,
+  ICommentViewCommentViewWrapperProps,
   ICommentViewPictureProps,
 } from "./CommentView.types";
 
 export const Wrapper = styled.div`
+  width: 100%;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const CommentWrapper = styled.div`
+export const CommentViewWrapper = styled.div`
   width: 85%;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  box-shadow: ${(props: ICommentViewCommentWrapperProps) =>
+  box-shadow: ${(props: ICommentViewCommentViewWrapperProps) =>
     props.isRep ? "0px 0px 10px gray;" : "none"};
 `;
+
+export const CommentWrapper = styled.div``;
 
 export const TitleWrapper = styled.div`
   display: flex;

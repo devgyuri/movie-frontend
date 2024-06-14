@@ -11,33 +11,22 @@ import { useQueryFetchComments } from "../../../src/components/commons/hooks/que
 import CommentView from "../../../src/components/commons/comment/view/CommentView.index";
 import { useEffect, useState } from "react";
 import { IComment } from "../../../src/commons/types/generated/types";
+import CommentList from "../../../src/components/commons/comment/list/CommentList.Index";
 
 export default function MovieDetailPage(): JSX.Element {
-  const [isAuth] = useRecoilState(authState);
-  const [userInfo] = useRecoilState(userInfoState);
-
   const router = useRouter();
+  const movieId = router.query.movieId;
 
-  const movieId = String(router.query.movieId);
+  if (typeof movieId !== "string") {
+    console.log("movieId: ", movieId);
+    return <></>;
+  }
 
   const { data: movieData } = useQueryFetchMovieDetail({ id: movieId });
 
-  const { data: commentData } = useQueryFetchComments({
+  const { data: commentsData } = useQueryFetchComments({
     movieId,
   });
-
-  const [myComment, setMyComment] = useState<IComment>();
-
-  useEffect(() => {
-    const filteredComment = commentData?.fetchComments.filter((el) => {
-      return el.user.id === userInfo.id;
-    });
-    setMyComment(filteredComment?.[0]);
-    console.log("fetch comment", commentData);
-    console.log(filteredComment);
-  }, [commentData]);
-
-  console.log("commentData: ", commentData);
 
   return (
     <>
@@ -45,38 +34,10 @@ export default function MovieDetailPage(): JSX.Element {
       <MovieDetail data={movieData?.fetchMovie} />
       <ActorSlider data={movieData?.fetchMovie.actors} />
       {/* <MediaTab /> */}
-      {isAuth && myComment ? (
-        <CommentView
-          userInfo={userInfo}
-          movieId={movieId}
-          data={myComment}
-          isRep={true}
-          isMine={true}
-          setMyComment={setMyComment}
-        />
-      ) : isAuth ? (
-        <CommentWrite
-          userInfo={userInfo}
-          movieId={movieId}
-          isEdit={false}
-          setMyComment={setMyComment}
-        />
-      ) : (
-        <></>
-      )}
-      {commentData?.fetchComments.map((el, index) => {
-        return (
-          <CommentView
-            userInfo={userInfo}
-            movieId={movieId}
-            key={index}
-            data={el}
-            isRep={false}
-            isMine={el.user.id === userInfo.id}
-            setMyComment={setMyComment}
-          />
-        );
-      })}
+      <CommentList
+        commentsData={commentsData?.fetchComments}
+        movieId={movieId}
+      />
     </>
   );
 }

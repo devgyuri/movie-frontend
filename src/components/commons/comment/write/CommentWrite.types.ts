@@ -4,18 +4,14 @@ import {
   IQuery,
   IQueryFetchCommentsArgs,
 } from "../../../../commons/types/generated/types";
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { commentStateKeys } from "../view/CommentView.index";
 
 export interface ICommentWriteProps {
-  userInfo: {
-    id: number;
-    name: string;
-    image: string;
-  };
-  movieId: string;
-  isEdit: boolean;
   data?: IComment;
-  setMyComment: Dispatch<SetStateAction<IComment | undefined>>;
+  commentState: commentStateKeys;
+  movieId: string;
+  setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
 }
 
 export interface ICommentWritePictureProps {

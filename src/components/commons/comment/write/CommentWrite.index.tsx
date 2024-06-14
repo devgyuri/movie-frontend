@@ -2,53 +2,60 @@ import * as S from "./CommentWrite.styles";
 import { ChangeEvent, useState } from "react";
 import { ICommentWriteProps } from "./CommentWrite.types";
 import { useComment } from "../../hooks/customs/useComment";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../../commons/stores";
+import { commentStateKeys } from "../view/CommentView.index";
 
 export default function CommentWrite(props: ICommentWriteProps): JSX.Element {
-  const [contents, setContents] = useState("");
-  const [star, setStar] = useState(0);
+  const [userInfo] = useRecoilState(userInfoState);
 
-  const { onChangeContents, onChangeStar, onClickCreate, onClickUpdate } =
-    useComment({
-      contents,
-      star,
-      movieId: props.movieId,
-      setContents,
-      setStar,
-      setMyComment: props.setMyComment,
-    });
+  const {
+    contentsLength,
+    onChangeContents,
+    onChangeStar,
+    onClickCreate,
+    onClickUpdate,
+  } = useComment({
+    defaultData: props.data,
+    movieId: props.movieId,
+    setCommentState: props.setCommentState,
+  });
 
   return (
     <>
-      <S.Wrapper>
-        <S.CommentWrapper>
-          <S.TitleWrapper>
-            <S.Picture
-              url={
-                props.userInfo.image === ""
-                  ? "/images/flower.jpg"
-                  : `http://storage.googleapis.com/example121232/${props.userInfo.image}`
-              }
-            />
-            <S.Writer>{props.userInfo.name}</S.Writer>
-            <S.Star allowHalf onChange={onChangeStar}></S.Star>
-          </S.TitleWrapper>
-          <S.ContentsWrapper>
-            <S.Contents onChange={onChangeContents} />
-            <S.CounterWrapper>
-              <S.Counter>{contents.length} / 200</S.Counter>
-              <S.SubmitButton
-                onClick={
-                  props.isEdit
-                    ? onClickUpdate(props.data?.id ?? -1)
-                    : onClickCreate
-                }
-              >
-                {props.isEdit ? "수정" : "등록"}
-              </S.SubmitButton>
-            </S.CounterWrapper>
-          </S.ContentsWrapper>
-        </S.CommentWrapper>
-      </S.Wrapper>
+      <S.TitleWrapper>
+        <S.Picture
+          url={
+            userInfo.image === ""
+              ? "/images/flower.jpg"
+              : `http://storage.googleapis.com/example121232/${userInfo.image}`
+          }
+        />
+        <S.Writer>{userInfo.name}</S.Writer>
+        <S.Star
+          defaultValue={props.data?.star}
+          allowHalf
+          onChange={onChangeStar}
+        ></S.Star>
+      </S.TitleWrapper>
+      <S.ContentsWrapper>
+        <S.Contents
+          defaultValue={props.data?.contents}
+          onChange={onChangeContents}
+        />
+        <S.CounterWrapper>
+          <S.Counter>{contentsLength} / 200</S.Counter>
+          <S.SubmitButton
+            onClick={
+              props.commentState === commentStateKeys.EDIT
+                ? onClickUpdate(props.data?.id ?? -1)
+                : onClickCreate
+            }
+          >
+            {props.commentState === commentStateKeys.EDIT ? "수정" : "등록"}
+          </S.SubmitButton>
+        </S.CounterWrapper>
+      </S.ContentsWrapper>
     </>
   );
 }

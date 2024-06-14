@@ -10,6 +10,12 @@ export const UPDATE_COMMENT = gql`
     updateComment(updateCommentInput: $updateCommentInput) {
       id
       contents
+      created_at
+      user {
+        id
+        name
+        picture
+      }
     }
   }
 `;
