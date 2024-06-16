@@ -121,9 +121,11 @@ export type IMutation = {
   __typename?: 'Mutation';
   createComment: IComment;
   createLike: Scalars['Boolean']['output'];
+  createSeen: Scalars['Boolean']['output'];
   createUser: Scalars['Boolean']['output'];
   deleteComment: IId;
   deleteLike: Scalars['Boolean']['output'];
+  deleteSeen: Scalars['Boolean']['output'];
   initializeTable: Scalars['String']['output'];
   loginUser: IAuthInfo;
   logoutUser: Scalars['String']['output'];
@@ -145,6 +147,11 @@ export type IMutationCreateLikeArgs = {
 };
 
 
+export type IMutationCreateSeenArgs = {
+  movieId: Scalars['String']['input'];
+};
+
+
 export type IMutationCreateUserArgs = {
   createUserInput: ICreateUserInput;
 };
@@ -156,6 +163,11 @@ export type IMutationDeleteCommentArgs = {
 
 
 export type IMutationDeleteLikeArgs = {
+  movieId: Scalars['String']['input'];
+};
+
+
+export type IMutationDeleteSeenArgs = {
   movieId: Scalars['String']['input'];
 };
 
@@ -215,6 +227,7 @@ export type IQuery = {
   fetchMovie: IMovie;
   fetchPoster: Scalars['String']['output'];
   fetchSeen: Scalars['Boolean']['output'];
+  fetchSeenCountByMovie: Scalars['Int']['output'];
   fetchStill: Scalars['String']['output'];
   fetchUser: IProfile;
   fetchVod: Scalars['String']['output'];
@@ -254,7 +267,11 @@ export type IQueryFetchMovieArgs = {
 
 export type IQueryFetchSeenArgs = {
   movieId: Scalars['String']['input'];
-  userId: Scalars['Float']['input'];
+};
+
+
+export type IQueryFetchSeenCountByMovieArgs = {
+  movieId: Scalars['String']['input'];
 };
 
 

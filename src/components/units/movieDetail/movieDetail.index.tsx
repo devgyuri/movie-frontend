@@ -1,8 +1,8 @@
 import { IMovieDetailProps } from "./MovieDetail.types";
-import ReactPlayer from "react-player";
 import * as S from "./MovieDetail.styles";
 import { useEffect, useState } from "react";
 import { useLike } from "../../commons/hooks/customs/useLike";
+import { useSeen } from "../../commons/hooks/customs/useSeen";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,9 +42,21 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   // console.log("movie Detail", data);
 
   // icon control
-  const { isLike, likeCount, onClickToggle } = useLike({
-    movieId: props.data?.id ?? "",
+  const movieId = props.data?.id ?? "";
+
+  const {
+    isLike,
+    likeCount,
+    onClickToggle: onClickLikeToggle,
+  } = useLike({
+    movieId,
   });
+
+  const {
+    isSeen,
+    seenCount,
+    onClickToggle: onClickSeenToggle,
+  } = useSeen({ movieId });
 
   // modal control
   const showModal = () => {
@@ -81,13 +93,17 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
                 <S.Summary>{props.data?.plot}</S.Summary>
                 <S.IconWrapper>
                   {isLike ? (
-                    <S.FavoriteOn onClick={onClickToggle}></S.FavoriteOn>
+                    <S.FavoriteOn onClick={onClickLikeToggle}></S.FavoriteOn>
                   ) : (
-                    <S.FavoriteOff onClick={onClickToggle}></S.FavoriteOff>
+                    <S.FavoriteOff onClick={onClickLikeToggle}></S.FavoriteOff>
                   )}
                   <S.Count>{likeCount}</S.Count>
-                  <S.Watched></S.Watched>
-                  <S.Count>123,456</S.Count>
+                  {isSeen ? (
+                    <S.WatchedOn onClick={onClickSeenToggle}></S.WatchedOn>
+                  ) : (
+                    <S.WatchedOff onClick={onClickSeenToggle}></S.WatchedOff>
+                  )}
+                  <S.Count>{seenCount}</S.Count>
                   <S.Star></S.Star>
                 </S.IconWrapper>
                 <S.VodButton onClick={showModal} isActive={hasVod}>
