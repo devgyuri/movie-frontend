@@ -12,6 +12,7 @@ export const FETCH_MOVIE_DETAIL = gql`
       open_dt
       plot
       audi_acc
+      avg_star
       actors {
         name
         url
