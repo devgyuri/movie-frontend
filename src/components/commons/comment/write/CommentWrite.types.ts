@@ -2,9 +2,9 @@ import { ApolloQueryResult } from "@apollo/client";
 import {
   IComment,
   IQuery,
-  IQueryFetchCommentsArgs,
+  IQueryFetchMovieArgs,
 } from "../../../../commons/types/generated/types";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { commentStateKeys } from "../view/CommentView.index";
 
 export interface ICommentWriteProps {
@@ -12,6 +12,9 @@ export interface ICommentWriteProps {
   commentState: commentStateKeys;
   movieId: string;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
+  refetchMovie: (
+    variables?: Partial<IQueryFetchMovieArgs>,
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
 export interface ICommentWritePictureProps {

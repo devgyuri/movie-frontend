@@ -5,6 +5,9 @@ export interface ICommentViewProps {
   data?: IComment;
   movieId: string;
   isMine: boolean;
+  refetchMovie: (
+    variables?: Partial<IQueryFetchMovieArgs>,
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
 export interface ICommentViewPictureProps {

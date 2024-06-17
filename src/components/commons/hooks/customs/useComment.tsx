@@ -7,10 +7,26 @@ import {
 } from "react";
 import { useMutationCreateComment } from "../mutations/useMutationCreateComment";
 import { useMutationDeleteComment } from "../mutations/useMutationDeleteComment";
-import { IComment } from "../../../../commons/types/generated/types";
+import {
+  IComment,
+  IQuery,
+  IQueryFetchMovieArgs,
+} from "../../../../commons/types/generated/types";
 import { useMutationUpdateComment } from "../mutations/useMutationUpdateComment";
 import { commentStateKeys } from "../../comment/view/CommentView.index";
 import { message } from "antd";
+import { FETCH_MOVIE_DETAIL } from "../queries/useQueryFetchMovieDetail";
+import { ApolloQueryResult, gql } from "@apollo/client";
+
+const READ_COMMENT_CACHE = gql`
+  query ReadMovie($id: String!) {
+    fetchMovie(id: $id) {
+      id
+      avg_star
+      cnt_star
+    }
+  }
+`;
 
 export interface IUseCommentArgs {
   defaultData?: IComment;
@@ -20,6 +36,9 @@ export interface IUseCommentArgs {
   // setContents: Dispatch<SetStateAction<string>>;
   // setStar: Dispatch<SetStateAction<number>>;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
+  refetchMovie: (
+    variables?: Partial<IQueryFetchMovieArgs>,
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
 export interface IUseComment {
@@ -63,14 +82,30 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
             movieId: args.movieId,
           },
         },
-        update: (cache, { data }) => {
+        update: (cache, { data: commentData }) => {
           cache.modify({
             fields: {
               fetchComments: (prev) => {
-                return [data?.createComment, ...prev];
+                return [commentData?.createComment, ...prev];
               },
             },
           });
+          cache.updateQuery(
+            {
+              query: READ_COMMENT_CACHE,
+              variables: { id: args.movieId },
+            },
+            (data) => ({
+              fetchMovie: {
+                ...data.fetchMovie,
+                avg_star: (
+                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star + star) /
+                  (data.fetchMovie.cnt_star + 1)
+                ).toFixed(2),
+                cnt_star: data.fetchMovie.cnt_star + 1,
+              },
+            }),
+          );
         },
       });
       // console.log(result);
@@ -95,14 +130,14 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
             star: star,
           },
         },
-        update: (cache, { data }) => {
+        update: (cache, { data: commentData }) => {
           cache.modify({
             fields: {
               fetchComments: (prev: IComment[], { readField }) => {
                 const newComment = prev.map((el) => {
-                  if (readField("id", el) === data?.updateComment.id) {
+                  if (readField("id", el) === commentData?.updateComment.id) {
                     return {
-                      ...data?.updateComment,
+                      ...commentData?.updateComment,
                     };
                   } else {
                     return el;
@@ -112,6 +147,22 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
+          cache.updateQuery(
+            {
+              query: READ_COMMENT_CACHE,
+              variables: { id: args.movieId },
+            },
+            (data) => ({
+              fetchMovie: {
+                ...data.fetchMovie,
+                avg_star: (
+                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star + star) /
+                  (data.fetchMovie.cnt_star + 1)
+                ).toFixed(2),
+                cnt_star: data.fetchMovie.cnt_star + 1,
+              },
+            }),
+          );
         },
       });
       args.setCommentState(commentStateKeys.READ);

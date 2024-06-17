@@ -27,6 +27,7 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
     defaultData: props.data,
     movieId: props.movieId,
     setCommentState,
+    refetchMovie: props.refetchMovie,
   });
 
   const userPicture =
@@ -76,6 +77,7 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
               commentState={commentState}
               movieId={props.movieId}
               setCommentState={setCommentState}
+              refetchMovie={props.refetchMovie}
             />
           )}
         </S.CommentViewWrapper>
