@@ -37,7 +37,7 @@ export interface IUseCommentArgs {
   // setStar: Dispatch<SetStateAction<number>>;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
   refetchMovie: (
-    variables?: Partial<IQueryFetchMovieArgs>,
+    variables?: Partial<IQueryFetchMovieArgs> | undefined,
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
@@ -90,24 +90,9 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
-          cache.updateQuery(
-            {
-              query: READ_COMMENT_CACHE,
-              variables: { id: args.movieId },
-            },
-            (data) => ({
-              fetchMovie: {
-                ...data.fetchMovie,
-                avg_star: (
-                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star + star) /
-                  (data.fetchMovie.cnt_star + 1)
-                ).toFixed(2),
-                cnt_star: data.fetchMovie.cnt_star + 1,
-              },
-            }),
-          );
         },
       });
+      args.refetchMovie({ id: args.movieId });
       // console.log(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -147,25 +132,10 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
-          cache.updateQuery(
-            {
-              query: READ_COMMENT_CACHE,
-              variables: { id: args.movieId },
-            },
-            (data) => ({
-              fetchMovie: {
-                ...data.fetchMovie,
-                avg_star: (
-                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star + star) /
-                  (data.fetchMovie.cnt_star + 1)
-                ).toFixed(2),
-                cnt_star: data.fetchMovie.cnt_star + 1,
-              },
-            }),
-          );
         },
       });
       args.setCommentState(commentStateKeys.READ);
+      args.refetchMovie({ id: args.movieId });
       // console.log(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -197,6 +167,7 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
           });
         },
       });
+      args.refetchMovie({ id: args.movieId });
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

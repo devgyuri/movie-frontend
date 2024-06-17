@@ -13,7 +13,7 @@ export interface ICommentWriteProps {
   movieId: string;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
   refetchMovie: (
-    variables?: Partial<IQueryFetchMovieArgs>,
+    variables?: Partial<IQueryFetchMovieArgs> | undefined,
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 

@@ -9,6 +9,6 @@ export interface ICommentListProps {
   commentsData?: IComment[];
   movieId: string;
   refetchMovie: (
-    variables?: Partial<IQueryFetchMovieArgs>,
+    variables?: Partial<IQueryFetchMovieArgs> | undefined,
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
