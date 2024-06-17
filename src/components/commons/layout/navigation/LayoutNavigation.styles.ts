@@ -1,9 +1,13 @@
 import styled from "@emotion/styled";
 import { ILayoutNavigationPictureProps } from "./LayoutNavigation.types";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
   padding: 40px;
-  height: 60px;
+  height: 80px;
   background-color: #212121;
   display: flex;
   flex-direction: row;
@@ -19,7 +23,7 @@ export const HomeLogo = styled.div`
   cursor: pointer;
 `;
 
-export const MenuWrapper = styled.div`
+export const MenuWrapper = styled.nav`
   margin-right: 10%;
   display: flex;
   flex-direction: row;

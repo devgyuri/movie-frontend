@@ -3,8 +3,6 @@ import * as S from "./CommentView.styles";
 import { ICommentViewProps } from "./CommentView.types";
 import { useComment } from "../../hooks/customs/useComment";
 import CommentWrite from "../write/CommentWrite.index";
-import { useRecoilState } from "recoil";
-import { authState } from "../../../../commons/stores";
 
 export const enum commentStateKeys {
   READ = 0,
@@ -18,7 +16,7 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
   );
 
   useEffect(() => {
-    if (props.data === undefined && props.isRep) {
+    if (props.data === undefined) {
       setCommentState(commentStateKeys.WRITE);
     } else {
       setCommentState(commentStateKeys.READ);
@@ -39,7 +37,7 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
   return (
     <>
       <S.Wrapper>
-        <S.CommentViewWrapper isRep={props.isRep}>
+        <S.CommentViewWrapper>
           {commentState === commentStateKeys.READ && (
             <S.CommentWrapper>
               <S.TitleWrapper>

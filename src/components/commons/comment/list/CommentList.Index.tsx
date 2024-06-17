@@ -24,24 +24,29 @@ export default function CommentList(props: ICommentListProps): JSX.Element {
   return (
     <>
       <S.Wrapper>
-        {isAuth && (
-          <CommentView
-            data={myComment}
-            movieId={props.movieId}
-            isRep={true}
-            isMine={true}
-          />
+        {isAuth && myComment === undefined && (
+          <>
+            <CommentView
+              data={myComment}
+              movieId={props.movieId}
+              isMine={true}
+            />
+            <S.Line />
+          </>
         )}
         {props.commentsData?.map((el, index) => {
           return (
             <>
               <CommentView
                 data={el}
-                isRep={false}
                 movieId={props.movieId}
                 isMine={el.user.id === userInfo.id}
               />
-              {index < (props.commentsData?.length ?? 0) ? <S.Line /> : <></>}
+              {index < (props.commentsData?.length ?? 0) - 1 ? (
+                <S.Line />
+              ) : (
+                <></>
+              )}
             </>
           );
         })}

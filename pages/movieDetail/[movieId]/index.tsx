@@ -12,6 +12,7 @@ import CommentView from "../../../src/components/commons/comment/view/CommentVie
 import { useEffect, useState } from "react";
 import { IComment } from "../../../src/commons/types/generated/types";
 import CommentList from "../../../src/components/commons/comment/list/CommentList.Index";
+import LayoutBody from "../../../src/components/commons/layout/body/LayoutBody.index";
 
 export default function MovieDetailPage(): JSX.Element {
   const router = useRouter();
@@ -31,13 +32,15 @@ export default function MovieDetailPage(): JSX.Element {
   return (
     <>
       <LayoutNavigation />
-      <MovieDetail data={movieData?.fetchMovie} />
-      <ActorSlider data={movieData?.fetchMovie.actors} />
-      {/* <MediaTab /> */}
-      <CommentList
-        commentsData={commentsData?.fetchComments}
-        movieId={movieId}
-      />
+      <LayoutBody>
+        <MovieDetail data={movieData?.fetchMovie} />
+        <ActorSlider data={movieData?.fetchMovie.actors} />
+        {/* <MediaTab /> */}
+        <CommentList
+          commentsData={commentsData?.fetchComments}
+          movieId={movieId}
+        />
+      </LayoutBody>
     </>
   );
 }
