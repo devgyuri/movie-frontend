@@ -15,7 +15,6 @@ import {
 import { useMutationUpdateComment } from "../mutations/useMutationUpdateComment";
 import { commentStateKeys } from "../../comment/view/CommentView.index";
 import { message } from "antd";
-import { FETCH_MOVIE_DETAIL } from "../queries/useQueryFetchMovieDetail";
 import { ApolloQueryResult, gql } from "@apollo/client";
 
 const READ_COMMENT_CACHE = gql`
@@ -36,15 +35,13 @@ export interface IUseCommentArgs {
   // setContents: Dispatch<SetStateAction<string>>;
   // setStar: Dispatch<SetStateAction<number>>;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
-  refetchMovie: (
-    variables?: Partial<IQueryFetchMovieArgs> | undefined,
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
 export interface IUseComment {
   contentsLength: number;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeStar: (value: number) => void;
+  onClickToggleEditState: () => void;
   onClickCreate: () => Promise<void>;
   onClickUpdate: (commentId: number) => () => Promise<void>;
   onClickDelete: (commentId: number) => () => Promise<void>;
@@ -53,10 +50,12 @@ export interface IUseComment {
 export const useComment = (args: IUseCommentArgs): IUseComment => {
   const [contents, setContents] = useState("");
   const [star, setStar] = useState(0);
+  const [prevStar, setPrevStar] = useState(0);
 
   useEffect(() => {
     setContents(args.defaultData?.contents ?? "");
     setStar(args.defaultData?.star ?? 0);
+    setPrevStar(args.defaultData?.star ?? 0);
   }, [args.defaultData]);
 
   const [createComment] = useMutationCreateComment();
@@ -69,6 +68,10 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
 
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setContents(event.currentTarget.value);
+  };
+
+  const onClickToggleEditState = () => {
+    args.setCommentState(commentStateKeys.EDIT);
   };
 
   const onClickCreate = async (): Promise<void> => {
@@ -90,9 +93,24 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
+          cache.updateQuery(
+            {
+              query: READ_COMMENT_CACHE,
+              variables: { id: args.movieId },
+            },
+            (data) => ({
+              fetchMovie: {
+                ...data.fetchMovie,
+                avg_star: (
+                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star + star) /
+                  (data.fetchMovie.cnt_star + 1)
+                ).toFixed(2),
+                cnt_star: data.fetchMovie.cnt_star + 1,
+              },
+            }),
+          );
         },
       });
-      args.refetchMovie({ id: args.movieId });
       // console.log(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -107,6 +125,7 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
         throw new Error("잘못된 요청입니다.");
       }
 
+      console.log("comment edit : ", star, " ", prevStar);
       const result = await updateComment({
         variables: {
           updateCommentInput: {
@@ -132,10 +151,26 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
+          cache.updateQuery(
+            {
+              query: READ_COMMENT_CACHE,
+              variables: { id: args.movieId },
+            },
+            (data) => ({
+              fetchMovie: {
+                ...data.fetchMovie,
+                avg_star: (
+                  (data.fetchMovie.avg_star * data.fetchMovie.cnt_star +
+                    star -
+                    prevStar) /
+                  data.fetchMovie.cnt_star
+                ).toFixed(2),
+              },
+            }),
+          );
         },
       });
       args.setCommentState(commentStateKeys.READ);
-      args.refetchMovie({ id: args.movieId });
       // console.log(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -165,9 +200,28 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
               },
             },
           });
+          cache.updateQuery(
+            {
+              query: READ_COMMENT_CACHE,
+              variables: { id: args.movieId },
+            },
+            (data) => ({
+              fetchMovie: {
+                ...data.fetchMovie,
+                avg_star:
+                  data.fetchMovie.cnt_star !== 1
+                    ? (
+                        (data.fetchMovie.avg_star * data.fetchMovie.cnt_star -
+                          star) /
+                        (data.fetchMovie.cnt_star - 1)
+                      ).toFixed(2)
+                    : 0,
+                cnt_star: data.fetchMovie.cnt_star - 1,
+              },
+            }),
+          );
         },
       });
-      args.refetchMovie({ id: args.movieId });
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -179,6 +233,7 @@ export const useComment = (args: IUseCommentArgs): IUseComment => {
     contentsLength: contents.length,
     onChangeContents,
     onChangeStar,
+    onClickToggleEditState,
     onClickCreate,
     onClickUpdate,
     onClickDelete,

@@ -30,7 +30,6 @@ export default function CommentList(props: ICommentListProps): JSX.Element {
               data={myComment}
               movieId={props.movieId}
               isMine={true}
-              refetchMovie={props.refetchMovie}
             />
             <S.Line />
           </>
@@ -42,7 +41,6 @@ export default function CommentList(props: ICommentListProps): JSX.Element {
                 data={el}
                 movieId={props.movieId}
                 isMine={el.user.id === userInfo.id}
-                refetchMovie={props.refetchMovie}
               />
               {index < (props.commentsData?.length ?? 0) - 1 ? (
                 <S.Line />

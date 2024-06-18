@@ -12,9 +12,6 @@ export interface ICommentWriteProps {
   commentState: commentStateKeys;
   movieId: string;
   setCommentState: Dispatch<SetStateAction<commentStateKeys>>;
-  refetchMovie: (
-    variables?: Partial<IQueryFetchMovieArgs> | undefined,
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchMovie">>>;
 }
 
 export interface ICommentWritePictureProps {

@@ -105,7 +105,9 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
                   )}
                   <S.Count>{seenCount}</S.Count>
                   <S.Star></S.Star>
-                  <S.Count>{props.data?.avg_star}</S.Count>
+                  <S.Count>
+                    {Number(props.data?.avg_star ?? 0).toFixed(2)}
+                  </S.Count>
                 </S.IconWrapper>
                 <S.VodButton onClick={showModal} isActive={hasVod}>
                   Watch Trailer

@@ -23,11 +23,10 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
     }
   }, [props]);
 
-  const { onClickDelete } = useComment({
+  const { onClickToggleEditState, onClickDelete } = useComment({
     defaultData: props.data,
     movieId: props.movieId,
     setCommentState,
-    refetchMovie: props.refetchMovie,
   });
 
   const userPicture =
@@ -52,11 +51,7 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
                 </S.MainWrapper>
                 {props.isMine && (
                   <S.OptionalWrapper>
-                    <S.UpdateIcon
-                      onClick={() => {
-                        setCommentState(commentStateKeys.EDIT);
-                      }}
-                    />
+                    <S.UpdateIcon onClick={onClickToggleEditState} />
                     <S.DeleteIcon
                       onClick={onClickDelete(props.data?.id ?? -1)}
                     />
@@ -77,7 +72,6 @@ export default function CommentView(props: ICommentViewProps): JSX.Element {
               commentState={commentState}
               movieId={props.movieId}
               setCommentState={setCommentState}
-              refetchMovie={props.refetchMovie}
             />
           )}
         </S.CommentViewWrapper>

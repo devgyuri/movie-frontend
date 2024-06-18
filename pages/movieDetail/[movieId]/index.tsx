@@ -23,7 +23,7 @@ export default function MovieDetailPage(): JSX.Element {
     return <></>;
   }
 
-  const { data: movieData, refetch: refetchMovie } = useQueryFetchMovieDetail({
+  const { data: movieData } = useQueryFetchMovieDetail({
     id: movieId,
   });
 
@@ -41,7 +41,6 @@ export default function MovieDetailPage(): JSX.Element {
         <CommentList
           commentsData={commentsData?.fetchComments}
           movieId={movieId}
-          refetchMovie={refetchMovie}
         />
       </LayoutBody>
     </>

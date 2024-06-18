@@ -19,7 +19,6 @@ export default function CommentWrite(props: ICommentWriteProps): JSX.Element {
     defaultData: props.data,
     movieId: props.movieId,
     setCommentState: props.setCommentState,
-    refetchMovie: props.refetchMovie,
   });
 
   return (
