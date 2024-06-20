@@ -27,12 +27,12 @@ export const FETCH_MOVIES = gql`
   }
 `;
 
-export const useQueryFetchMovies = (): QueryResult<
-  Pick<IQuery, "fetchMovies">,
-  IQueryFetchMoviesArgs
-> => {
+export const useQueryFetchMovies = (
+  variables?: IQueryFetchMoviesArgs,
+): QueryResult<Pick<IQuery, "fetchMovies">, IQueryFetchMoviesArgs> => {
   const result = useQuery<Pick<IQuery, "fetchMovies">, IQueryFetchMoviesArgs>(
     FETCH_MOVIES,
+    { variables },
   );
   return result;
 };

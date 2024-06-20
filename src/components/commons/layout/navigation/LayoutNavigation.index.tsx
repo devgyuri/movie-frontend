@@ -8,6 +8,7 @@ import { authState, userInfoState } from "../../../../commons/stores";
 import { PROFILE_URL } from "../../../../commons/libraries/url";
 import { useQueryFetchMovies } from "../../hooks/queries/useQueryFetchMovies";
 import { useSearch } from "../../hooks/customs/useSearch";
+import { useRouter } from "next/router";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
@@ -22,6 +23,8 @@ export default function LayoutNavigation(
   const { keyword, onChangeSearchBar } = useSearch({
     refetch: props.refetch ?? refetch,
   });
+
+  const router = useRouter();
 
   const { onClickMoveToPage } = useMoveToPage();
 
@@ -50,15 +53,25 @@ export default function LayoutNavigation(
           ),
         )}
       </S.MenuWrapper>
-      <S.SearchBar
-        type="text"
-        defaultValue={props.keyword}
-        placeholder="검색어를 입력해주세요."
-        onChange={onChangeSearchBar}
-      />
-      <S.SearchButton onClick={onClickMoveToPage("/searchMovieList")}>
-        검색
-      </S.SearchButton>
+      <S.SearchWrapper>
+        <S.SearchButton
+          onClick={() => {
+            router.push(
+              {
+                pathname: "/searchMovieList",
+                query: { keyword },
+              },
+              "/searchMovieList",
+            );
+          }}
+        />
+        <S.SearchInput
+          type="text"
+          defaultValue={props.keyword}
+          placeholder="검색어를 입력해주세요."
+          onChange={onChangeSearchBar}
+        />
+      </S.SearchWrapper>
       {isAuth ? (
         <S.LoginWrapper>
           <S.Picture

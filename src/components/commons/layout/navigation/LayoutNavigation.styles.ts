@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { SearchOutlined } from "@ant-design/icons";
 import { ILayoutNavigationPictureProps } from "./LayoutNavigation.types";
 
 export const Wrapper = styled.header`
@@ -58,12 +59,37 @@ export const SelectedMenuItem = styled.div`
   color: #212121;
 `;
 
-export const SearchBar = styled.input``;
+export const SearchWrapper = styled.div`
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition-duration: 0.3s;
 
-export const SearchButton = styled.button`
-  background-color: red;
+  :focus-within {
+    border-bottom: 2px solid var(--primary-color);
+  }
+`;
+
+export const SearchInput = styled.input`
+  width: 130px;
+  background-color: transparent;
   border: none;
+  outline: none;
   color: white;
+  transition-duration: 0.3s;
+
+  :focus {
+    width: 150px;
+  }
+`;
+
+export const SearchButton = styled(SearchOutlined)`
+  font-size: 20px;
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
 `;
 
 export const LoginWrapper = styled.div`
