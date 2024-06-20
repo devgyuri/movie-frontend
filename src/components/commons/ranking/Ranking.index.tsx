@@ -20,7 +20,10 @@ export default function Ranking(props: IRankingProps): JSX.Element {
           </S.InfoBox>
           <S.Ranking>{props.ranking}</S.Ranking>
           <S.PosterWrapper>
-            <MoviePoster movieId={props.movieId} posterUrl={props.poster} />
+            <MoviePoster
+              movieId={props.movieId}
+              posterUrl={`${props.poster}`}
+            />
           </S.PosterWrapper>
         </S.CardWrapper>
       </S.Wrapper>

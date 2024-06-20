@@ -1,15 +1,17 @@
 import styled from "@emotion/styled";
+import { IMoviePosterPosterImgProps } from "./MoviePoster.types";
+import { POSTER_URL } from "../../../commons/libraries/url";
 
 export const Wrapper = styled.div`
   position: relative;
   width: 180px;
   height: 250px;
 
-  :hover div:nth-of-type(1) {
+  :hover div:nth-of-type(2) {
     background: rgba(0, 0, 0, 0.3);
   }
 
-  :hover div:nth-of-type(2) {
+  :hover div:nth-of-type(3) {
     opacity: 1;
   }
 `;
@@ -24,10 +26,13 @@ export const Overlay = styled.div`
   transition: background 0.5s ease;
 `;
 
-export const PosterImg = styled.img`
+export const PosterImg = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  background-image: url(${(props: IMoviePosterPosterImgProps) =>
+    props.url ? POSTER_URL + props.url : "var(--gray)"});
+  background-size: cover;
 `;
 
 export const DetailButton = styled.div`

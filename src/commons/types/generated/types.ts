@@ -225,6 +225,7 @@ export type IQuery = {
   fetchLike: Scalars['Boolean']['output'];
   fetchLikeCountByMovie: Scalars['Int']['output'];
   fetchMovie: IMovie;
+  fetchMovies: Array<IMovie>;
   fetchPoster: Scalars['String']['output'];
   fetchSeen: Scalars['Boolean']['output'];
   fetchSeenCountByMovie: Scalars['Int']['output'];
@@ -262,6 +263,12 @@ export type IQueryFetchLikeCountByMovieArgs = {
 
 export type IQueryFetchMovieArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type IQueryFetchMoviesArgs = {
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

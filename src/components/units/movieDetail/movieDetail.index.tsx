@@ -6,10 +6,13 @@ import { useSeen } from "../../commons/hooks/customs/useSeen";
 
 export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasVod, setHasVod] = useState(false);
 
   useEffect(() => {
-    console.log(props.data);
-  }, []);
+    if (props.data?.vods[0]?.url) {
+      setHasVod(true);
+    }
+  }, [props.data]);
 
   // movie information
   const openYear = props.data?.open_dt.substring(0, 4);
@@ -25,14 +28,11 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
 
   const posterUrl = props.data?.posters[0].url;
 
-  let hasVod = false;
-  const vodUrl = props.data?.vods[0]?.url.replace(
+  let vodUrl = props.data?.vods[0]?.url.replace(
     "trailerPlayPop?pFileNm=",
     "play/",
   );
-  if (props.data?.vods.length !== 0) {
-    hasVod = true;
-  }
+  console.log("voidUrl: ", vodUrl);
 
   // test useQuery
   // const { data } = useQueryFetchLike({
@@ -77,7 +77,7 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
         <S.BackgroundImage url={posterUrl ?? ""}>
           <S.ContentWrapper>
             <S.CardWrapper>
-              <S.Poster src={posterUrl}></S.Poster>
+              <S.Poster url={posterUrl}></S.Poster>
               <S.InfoWrapper>
                 <S.OpenYear>{openYear}</S.OpenYear>
                 <S.Title>{props.data?.title}</S.Title>

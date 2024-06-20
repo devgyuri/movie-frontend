@@ -5,6 +5,9 @@ import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
 import { useLogout } from "../../hooks/customs/useLogout";
 import { useRecoilState } from "recoil";
 import { authState, userInfoState } from "../../../../commons/stores";
+import { PROFILE_URL } from "../../../../commons/libraries/url";
+import { useQueryFetchMovies } from "../../hooks/queries/useQueryFetchMovies";
+import { useSearch } from "../../hooks/customs/useSearch";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
@@ -15,6 +18,11 @@ const NAVIGATION_MENUS = [
 export default function LayoutNavigation(
   props: ILayoutNavigationProps,
 ): JSX.Element {
+  const { refetch } = useQueryFetchMovies();
+  const { keyword, onChangeSearchBar } = useSearch({
+    refetch: props.refetch ?? refetch,
+  });
+
   const { onClickMoveToPage } = useMoveToPage();
 
   const [userInfo] = useRecoilState(userInfoState);
@@ -42,13 +50,22 @@ export default function LayoutNavigation(
           ),
         )}
       </S.MenuWrapper>
+      <S.SearchBar
+        type="text"
+        defaultValue={props.keyword}
+        placeholder="검색어를 입력해주세요."
+        onChange={onChangeSearchBar}
+      />
+      <S.SearchButton onClick={onClickMoveToPage("/searchMovieList")}>
+        검색
+      </S.SearchButton>
       {isAuth ? (
         <S.LoginWrapper>
           <S.Picture
             url={
               userInfo.image === ""
                 ? "/images/flower.jpg"
-                : `http://storage.googleapis.com/example121232/${userInfo.image}`
+                : `${PROFILE_URL}${userInfo.image}`
             }
           ></S.Picture>
           <S.Name onClick={onClickMoveToPage("/myPage")}>

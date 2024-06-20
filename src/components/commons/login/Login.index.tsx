@@ -4,12 +4,18 @@ import { useMoveToPage } from "../hooks/customs/useMoveToPage";
 import { useRecoilState } from "recoil";
 import { authState } from "../../../commons/stores";
 
+const SOCIAL_LOGIN = [
+  { name: "google", page: "/login/google" },
+  { name: "naver", page: "/login/naver" },
+  { name: "kakao", page: "/login/kakao" },
+];
+
 export default function Login(): JSX.Element {
   const [isAuth] = useRecoilState(authState);
 
   const { onChangeEmail, onChangePassword, onClickLogin } = useLogin();
 
-  const { moveToPage } = useMoveToPage();
+  const { onClickMoveToPage, moveToPage } = useMoveToPage();
 
   if (isAuth) {
     moveToPage("/");

@@ -42,3 +42,8 @@ export const SubmitButton = styled.button`
     border: 2px solid var(--primary-color);
   }
 `;
+
+export const SocialLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;

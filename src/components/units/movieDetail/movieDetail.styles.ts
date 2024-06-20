@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-import { IBackgroundImageProps } from "./MovieDetail.types";
+import {
+  IBackgroundImageProps,
+  IMovieDetailPosterProps,
+} from "./MovieDetail.types";
 import {
   HeartOutlined,
   EyeOutlined,
@@ -9,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import { Modal } from "antd";
 import ReactPlayer from "react-player";
+import { POSTER_URL } from "../../../commons/libraries/url";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -25,7 +29,8 @@ export const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  background-image: url(${(props: IBackgroundImageProps) => props.url});
+  background-image: url(${(props: IBackgroundImageProps) =>
+    POSTER_URL + props.url});
   background-size: cover;
   background-position: 0 -120px;
   z-index: 1;
@@ -59,14 +64,19 @@ export const CardWrapper = styled.div`
   flex-direction: row;
 `;
 
-export const Poster = styled.img`
-  margin: 0 50 0 0;
+export const Poster = styled.div`
   width: 230px;
+  min-width: 230px;
   height: 320px;
+  background-image: url(${(props: IMovieDetailPosterProps) =>
+    props.url ? POSTER_URL + props.url : ""});
+  background-size: cover;
+  background-color: ${(props: IMovieDetailPosterProps) =>
+    !props.url ? "var(--gray)" : "none"};
 `;
 
 export const InfoWrapper = styled.div`
-  padding-left: 40px;
+  margin-left: 40px;
   color: var(--white);
 `;
 
@@ -152,11 +162,15 @@ export const VodButton = styled.button<{ isActive: boolean }>`
   background-color: ${(props) =>
     props.isActive ? "var(--primary-color)" : "var(--light-gray)"};
   color: var(--white);
-  cursor: pointer;
+  cursor: ${(props) => (props.isActive ? "pointer" : "not-allowed")};
 
   :hover {
-    color: var(--primary-color);
-    background-color: var(--white);
+    color: ${(props) =>
+      props.isActive ? "var(--primary-color)" : "var(--white)"};
+    background-color: ${(props) =>
+      props.isActive ? "var(--white)" : "var(--light-gray)"};
+    border: ${(props) =>
+      props.isActive ? "2px solid var(--primary-color)" : "none"};
   }
 `;
 

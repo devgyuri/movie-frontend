@@ -14,7 +14,7 @@ export default function MoviePoster(props: IMoviePosterProps): JSX.Element {
   return (
     <>
       <Wrapper>
-        <PosterImg src={props.posterUrl} />
+        <PosterImg url={props.posterUrl} />
         <Overlay />
         <DetailButton
           onClick={onClickMoveToPage(`/movieDetail/${props.movieId}`)}

@@ -9,6 +9,10 @@ export interface IMovieDetailProps {
   // data?: tempMovie;
 }
 
+export interface IMovieDetailPosterProps {
+  url?: string;
+}
+
 export interface IFavoriteProps {
   isActive: boolean;
 }

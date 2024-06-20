@@ -58,6 +58,14 @@ export const SelectedMenuItem = styled.div`
   color: #212121;
 `;
 
+export const SearchBar = styled.input``;
+
+export const SearchButton = styled.button`
+  background-color: red;
+  border: none;
+  color: white;
+`;
+
 export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: row;
