@@ -122,7 +122,7 @@ export type IMutation = {
   createComment: IComment;
   createLike: Scalars['Boolean']['output'];
   createSeen: Scalars['Boolean']['output'];
-  createUser: Scalars['Boolean']['output'];
+  createUser: IUser;
   deleteComment: IId;
   deleteLike: Scalars['Boolean']['output'];
   deleteSeen: Scalars['Boolean']['output'];
@@ -226,6 +226,7 @@ export type IQuery = {
   fetchLikeCountByMovie: Scalars['Int']['output'];
   fetchMovie: IMovie;
   fetchMovies: Array<IMovie>;
+  fetchMoviesByGenre: Array<IMovie>;
   fetchPoster: Scalars['String']['output'];
   fetchSeen: Scalars['Boolean']['output'];
   fetchSeenCountByMovie: Scalars['Int']['output'];
@@ -268,6 +269,12 @@ export type IQueryFetchMovieArgs = {
 
 export type IQueryFetchMoviesArgs = {
   keyword?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type IQueryFetchMoviesByGenreArgs = {
+  genreId: Scalars['Float']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
 };
 

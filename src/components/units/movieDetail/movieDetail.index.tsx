@@ -26,7 +26,7 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
     }
   }
 
-  const posterUrl = props.data?.posters[0].url;
+  const posterUrl = props.data?.posters?.[0]?.url;
 
   let vodUrl = props.data?.vods[0]?.url.replace(
     "trailerPlayPop?pFileNm=",

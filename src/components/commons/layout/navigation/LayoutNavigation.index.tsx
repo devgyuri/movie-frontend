@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 const NAVIGATION_MENUS = [
   { name: "box office", page: "/boxOffice" },
-  { name: "category", page: "/category" },
+  { name: "genre", page: "/genre" },
   { name: "my page", page: "/myPage" },
 ];
 

@@ -45,7 +45,7 @@ export const InfoBox = styled.div`
 
 export const Info = styled.div`
   width: 60%;
-  margin-left: 40%;
+  margin-left: 25%;
   padding-top: 20px;
   height: 250px;
   display: flex;
