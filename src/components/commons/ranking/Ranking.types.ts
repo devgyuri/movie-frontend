@@ -1,5 +1,6 @@
 export interface IRankingProps {
   title: string;
+  star: number;
   ranking: number;
   poster: string;
   genre: string;

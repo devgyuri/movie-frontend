@@ -17,8 +17,8 @@ export default function CommentList(props: ICommentListProps): JSX.Element {
       return el.user.id === userInfo.id;
     });
     setMyComment(filteredComment?.[0]);
-    console.log("fetch comment", props.commentsData);
-    console.log(filteredComment);
+    console.log("fetch comment: ", props.commentsData);
+    console.log("my comment: ", filteredComment);
   }, [props.commentsData]);
 
   return (

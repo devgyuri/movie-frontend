@@ -8,27 +8,25 @@ export const FETCH_BOXOFFICE = gql`
   query fetchBoxOffice($date: String!) {
     fetchBoxOffice(date: $date) {
       id
-      title
-      open_dt
-      plot
+      rank
       audi_acc
-      actors {
-        name
-        url
-      }
-      directors {
-        name
-      }
-      genres {
-        name
-      }
-      posters {
-        url
-        isRep
-      }
-      vods {
-        url
-        isRep
+      movie {
+        id
+        title
+        open_dt
+        avg_star
+        directors {
+          id
+          name
+        }
+        genres {
+          id
+          name
+        }
+        posters {
+          url
+          isRep
+        }
       }
     }
   }

@@ -21,7 +21,7 @@ export default function BoxOffice(): JSX.Element {
         yesterday={yesterday}
         onChangeDateSelector={onChangeDateSelector}
       />
-      <BoxOfficeBody data={data} />
+      <BoxOfficeBody data={data?.fetchBoxOffice} />
     </>
   );
 }

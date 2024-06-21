@@ -22,7 +22,6 @@ export const FETCH_MOVIES = gql`
       directors {
         name
       }
-      audi_acc
     }
   }
 `;

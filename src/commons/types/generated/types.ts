@@ -39,6 +39,7 @@ export type IBoxOffice = {
 
 export type IBoxOfficeToMovie = {
   __typename?: 'BoxOfficeToMovie';
+  audi_acc: Scalars['Int']['output'];
   boxOffice: IBoxOffice;
   id: Scalars['Int']['output'];
   movie: IMovie;
@@ -97,7 +98,6 @@ export type ILike = {
 export type IMovie = {
   __typename?: 'Movie';
   actors: Array<IActor>;
-  audi_acc: Scalars['Int']['output'];
   avg_star: Scalars['Float']['output'];
   boxOfficeToMovies: Array<IBoxOfficeToMovie>;
   cnt_star: Scalars['Int']['output'];
@@ -218,7 +218,7 @@ export type IQuery = {
   __typename?: 'Query';
   fetchActor: Scalars['String']['output'];
   fetchActorImage: Scalars['String']['output'];
-  fetchBoxOffice: Array<IMovie>;
+  fetchBoxOffice: Array<IBoxOfficeToMovie>;
   fetchBoxOfficeToMovie: Scalars['String']['output'];
   fetchComment: Scalars['String']['output'];
   fetchComments: Array<IComment>;

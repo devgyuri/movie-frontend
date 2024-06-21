@@ -26,7 +26,7 @@ export default function Test3Page(): JSX.Element {
             directorNm={el.directors?.[0].name ?? ""}
             movieId={el.id}
             poster={el.posters?.[0]?.url ?? ""}
-            audiAcc={el.audi_acc}
+            audiAcc={0}
           />
         );
       })}

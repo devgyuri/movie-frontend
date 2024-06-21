@@ -12,9 +12,14 @@ export default function Ranking(props: IRankingProps): JSX.Element {
           <S.InfoBox>
             <S.Info>
               <S.Title>{props.title}</S.Title>
-              <S.Star value={4.0} disabled />
+              <S.Star value={props.star} allowHalf disabled />
               <S.Genre>{props.genre}</S.Genre>
-              <S.Audience>{props.audiAcc}명</S.Audience>
+              <S.Audience>
+                {props.audiAcc
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                명
+              </S.Audience>
               <S.Director>{props.directorNm}</S.Director>
             </S.Info>
           </S.InfoBox>
