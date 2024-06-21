@@ -1,6 +1,6 @@
 import * as S from "./MovieList.styles";
 import { IMovieListProps } from "./MovieList.types";
-import Ranking from "../../commons/ranking/Ranking.index";
+import Ranking from "../ranking/Ranking.index";
 
 export default function MovieList(props: IMovieListProps): JSX.Element {
   return (

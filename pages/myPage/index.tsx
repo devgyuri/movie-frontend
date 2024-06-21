@@ -7,7 +7,7 @@ export default function MyPagePage(): JSX.Element {
 
   return (
     <>
-      <LayoutNavigation menuIndex={2} />
+      <LayoutNavigation />
       <LayoutBody>myPage</LayoutBody>
     </>
   );

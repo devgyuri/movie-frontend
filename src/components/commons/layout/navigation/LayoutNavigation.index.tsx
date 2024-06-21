@@ -9,12 +9,7 @@ import { PROFILE_URL } from "../../../../commons/libraries/url";
 import { useQueryFetchMovies } from "../../hooks/queries/useQueryFetchMovies";
 import { useSearch } from "../../hooks/customs/useSearch";
 import { useRouter } from "next/router";
-
-const NAVIGATION_MENUS = [
-  { name: "box office", page: "/boxOffice" },
-  { name: "genre", page: "/genre" },
-  { name: "my page", page: "/myPage" },
-];
+import { NAVIGATION_MENUS } from "../../../../commons/libraries/navigation";
 
 export default function LayoutNavigation(
   props: ILayoutNavigationProps,

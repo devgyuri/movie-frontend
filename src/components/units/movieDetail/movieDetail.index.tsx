@@ -80,6 +80,7 @@ export default function MovieDetail(props: IMovieDetailProps): JSX.Element {
               <S.Poster url={posterUrl}></S.Poster>
               <S.InfoWrapper>
                 <S.OpenYear>{openYear}</S.OpenYear>
+                {/* <S.OpenYear>{props.data?.open_dt}</S.OpenYear> */}
                 <S.Title>{props.data?.title}</S.Title>
                 <S.GenreWrapper>
                   {genres.map((el, idx) => {

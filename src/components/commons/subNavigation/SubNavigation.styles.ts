@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { IGenreNavigationGenreTagProps } from "./genreNavigation.types";
+import { ISubNavigationTagProps } from "./SubNavigation.types";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -19,9 +19,9 @@ export const GenreWrapper = styled.div`
 export const GenreTag = styled.div`
   width: 150px;
   height: 50px;
-  background-color: ${(props: IGenreNavigationGenreTagProps) =>
+  background-color: ${(props: ISubNavigationTagProps) =>
     props.isActive ? "var(--primary-color)" : "white"};
-  color: ${(props: IGenreNavigationGenreTagProps) =>
+  color: ${(props: ISubNavigationTagProps) =>
     props.isActive ? "white" : "black"};
   cursor: pointer;
   border-radius: 25px;

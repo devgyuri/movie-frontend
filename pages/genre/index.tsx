@@ -2,8 +2,9 @@ import { MouseEvent, useState } from "react";
 import LayoutBody from "../../src/components/commons/layout/body/LayoutBody.index";
 import LayoutNavigation from "../../src/components/commons/layout/navigation/LayoutNavigation.index";
 import { useQueryFetchMoviesByGenre } from "../../src/components/commons/hooks/queries/useQueryFetchMoviesByGenre";
-import MovieList from "../../src/components/units/movieList/MovieList.index";
-import GenreNavigation from "../../src/components/units/genreNavigation/genreNavigation.index";
+import MovieList from "../../src/components/commons/movieList/MovieList.index";
+import SubNavigation from "../../src/components/commons/subNavigation/SubNavigation.index";
+import { NAVIGATION_GENRES } from "../../src/commons/libraries/navigation";
 
 export default function GenrePage(): JSX.Element {
   const [genreId, setGenreId] = useState(1);
@@ -21,7 +22,11 @@ export default function GenrePage(): JSX.Element {
     <>
       <LayoutNavigation menuIndex={1} />
       <LayoutBody>
-        <GenreNavigation genreId={genreId} onClickGenreTag={onClickGenreTag} />
+        <SubNavigation
+          tagId={genreId}
+          onClickTag={onClickGenreTag}
+          menus={NAVIGATION_GENRES}
+        />
         <MovieList data={data?.fetchMoviesByGenre} />
       </LayoutBody>
     </>
