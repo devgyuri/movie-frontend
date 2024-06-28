@@ -45,6 +45,7 @@ export const useUpdateUser = (args: IUseUpdateUserArgs): IUseUpdateUser => {
       }
 
       setUserInfo({
+        ...userInfo,
         name: args.name,
         image: args.picture,
       });

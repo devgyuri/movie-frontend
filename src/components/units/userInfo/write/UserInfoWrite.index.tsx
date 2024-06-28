@@ -1,13 +1,17 @@
 import { IUserInfoWriteProps } from "./UserInfoWrite.types";
 import * as S from "./UserInfoWrite.styles";
-import { useUpdateUser } from "../../commons/hooks/customs/useUpdateUser";
-import { useUploads } from "../../commons/hooks/customs/useUploads";
+import { useUpdateUser } from "../../../commons/hooks/customs/useUpdateUser";
+import { useUploads } from "../../../commons/hooks/customs/useUploads";
 import { useEffect, useState } from "react";
-import { useCreateUser } from "../../commons/hooks/customs/useCreateUser";
-import { useQueryNameDuplicationCheck } from "../../commons/hooks/queries/useQueryNameDuplicationCheck";
-import { useCheckUserInputValidation } from "../../commons/hooks/customs/useCheckUserInfoValidation";
+import { useCreateUser } from "../../../commons/hooks/customs/useCreateUser";
+import { useQueryNameDuplicationCheck } from "../../../commons/hooks/queries/useQueryNameDuplicationCheck";
+import { useCheckUserInputValidation } from "../../../commons/hooks/customs/useCheckUserInfoValidation";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../../commons/stores";
 
 export default function UserInfoWrite(props: IUserInfoWriteProps): JSX.Element {
+  const [userInfo] = useRecoilState(userInfoState);
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -40,12 +44,10 @@ export default function UserInfoWrite(props: IUserInfoWriteProps): JSX.Element {
   const [picture, setPicture] = useState("");
 
   useEffect(() => {
-    console.log("userInfoWrite useEffect");
-    console.log(props.userData);
-    setEmail(props.userData?.fetchUser.email ?? "");
-    setName(props.userData?.fetchUser.name ?? "");
-    setPicture(props.userData?.fetchUser.picture ?? "");
-  }, [props.userData]);
+    setEmail(userInfo.email);
+    setName(userInfo.name);
+    setPicture(userInfo.image);
+  }, [userInfo]);
 
   const { fileRef, onChangeFile, onClickUpload } = useUploads({
     setPicture,
@@ -83,7 +85,7 @@ export default function UserInfoWrite(props: IUserInfoWriteProps): JSX.Element {
           <S.Label>이름</S.Label>
           <S.Name
             type="text"
-            defaultValue={props.userData?.fetchUser.name}
+            defaultValue={name}
             placeholder="20글자 이내로 설정 가능합니다."
             onChange={onChangeName}
           ></S.Name>
@@ -93,7 +95,7 @@ export default function UserInfoWrite(props: IUserInfoWriteProps): JSX.Element {
           <S.Label>이메일</S.Label>
           <S.Email
             type="text"
-            defaultValue={props.userData?.fetchUser.email}
+            defaultValue={email}
             placeholder="example@a.com"
             onChange={onChangeEmail}
             disabled={props.isEdit}

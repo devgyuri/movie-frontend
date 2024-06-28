@@ -58,6 +58,7 @@ export const useLogin = (): IUseLogin => {
         id: result.data?.loginUser.profile.id,
         name: result.data?.loginUser.profile.name,
         image: result.data?.loginUser.profile.picture,
+        email: result.data?.loginUser.profile.email,
       });
 
       alert("로그인에 성공하였습니다.");

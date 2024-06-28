@@ -12,6 +12,7 @@ export const LOGIN_USER = gql`
         id
         name
         picture
+        email
       }
     }
   }

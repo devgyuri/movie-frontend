@@ -19,6 +19,7 @@ export const userInfoState = atom({
     id: "",
     name: "",
     image: "",
+    email: "",
   },
   effects_UNSTABLE: [persistAtom],
 });

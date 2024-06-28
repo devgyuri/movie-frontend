@@ -4,6 +4,7 @@ import { IQuery } from "../../../../commons/types/generated/types";
 export const FETCH_USER = gql`
   query fetchUser {
     fetchUser {
+      id
       email
       name
       picture
