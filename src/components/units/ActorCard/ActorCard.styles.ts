@@ -7,11 +7,12 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Image = styled.img`
+export const Image = styled.div`
   margin-bottom: 10px;
   width: 140px;
   height: 140px;
   border-radius: 70px;
+  background-color: var(--light-gray);
   background-image: url(${(props: IActorCardImageProps) => props.url});
   background-size: cover;
   background-position: center;

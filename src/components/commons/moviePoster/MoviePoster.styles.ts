@@ -30,6 +30,7 @@ export const PosterImg = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  background-color: var(--light-gray);
   background-image: url(${(props: IMoviePosterPosterImgProps) =>
     props.url ? POSTER_URL + props.url : "var(--gray)"});
   background-size: cover;

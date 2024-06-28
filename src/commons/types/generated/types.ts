@@ -228,7 +228,7 @@ export type IQuery = {
   fetchMovies: Array<IMovie>;
   fetchMoviesByGenre: Array<IMovie>;
   fetchMoviesByLatest: Array<IMovie>;
-  fetchPoster: Scalars['String']['output'];
+  fetchRepPoster: IPoster;
   fetchSeen: Scalars['Boolean']['output'];
   fetchSeenCountByMovie: Scalars['Int']['output'];
   fetchStill: Scalars['String']['output'];
@@ -283,6 +283,11 @@ export type IQueryFetchMoviesByGenreArgs = {
 export type IQueryFetchMoviesByLatestArgs = {
   latestId: Scalars['Int']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type IQueryFetchRepPosterArgs = {
+  movieId: Scalars['String']['input'];
 };
 
 
