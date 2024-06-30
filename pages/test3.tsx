@@ -22,6 +22,7 @@ export default function Test3Page(): JSX.Element {
             key={el.id}
             title={el.title}
             ranking={index + 1}
+            star={0}
             genre={el.genres?.[0].name ?? ""}
             directorNm={el.directors?.[0].name ?? ""}
             movieId={el.id}

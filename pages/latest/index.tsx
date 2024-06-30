@@ -5,16 +5,30 @@ import { useQueryFetchMoviesByLatest } from "../../src/components/commons/hooks/
 import SubNavigation from "../../src/components/commons/subNavigation/SubNavigation.index";
 import { NAVIGATION_LATEST } from "../../src/commons/libraries/navigation";
 import MovieList from "../../src/components/commons/movieList/MovieList.index";
+import Pagination from "../../src/components/commons/pagination/pagination.index";
 
 export default function LatestPage(): JSX.Element {
   const [latestId, setLatestId] = useState(1);
-  const { data, refetch } = useQueryFetchMoviesByLatest({ latestId });
+  const [page, setPage] = useState(1);
+  const { data, refetch } = useQueryFetchMoviesByLatest({ latestId, page });
 
   const onClickLatestTag =
     (tagId: number) => (event: MouseEvent<HTMLDivElement>) => {
+      if (tagId !== latestId) {
+        setPage(1);
+      }
       setLatestId(tagId);
       refetch({
         latestId: tagId,
+      });
+    };
+
+  const onClickPage =
+    (pageNum: number) => (event: MouseEvent<HTMLDivElement>) => {
+      setPage(pageNum);
+      refetch({
+        latestId,
+        page,
       });
     };
 
@@ -28,6 +42,7 @@ export default function LatestPage(): JSX.Element {
           menus={NAVIGATION_LATEST}
         />
         <MovieList data={data?.fetchMoviesByLatest} />
+        <Pagination page={page} onClickPage={onClickPage} />
       </LayoutBody>
     </>
   );
